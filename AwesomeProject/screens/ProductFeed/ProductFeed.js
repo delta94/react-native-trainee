@@ -1,15 +1,38 @@
 
 import React from 'react'
-import { Text, StyleSheet, Button } from 'react-native';
 import MainLayout from '../../components/Layout/MainLayout';
-
+import {
+    StyleSheet,
+    View,
+    Text,
+    Image,
+    Button
+} from 'react-native';
 
 class ProductFeed extends React.Component {
 
     constructor(props) {
         super(props)
     }
+
+    renderProductsList = () => {
+        let products = []; //from redux
+        if (!products) {
+            return (<Text>Products is empty.</Text>);
+        }
+
+        return (
+            <View>
+                {products.map((product) => {
+                    return <View> {product}</View> //product item component
+                })}
+            </View>);
+    }
+
     render() {
+
+        let productsList = this.renderProductsList();
+
         return (
             <>
                 <MainLayout
@@ -19,17 +42,17 @@ class ProductFeed extends React.Component {
                     showThreeDotsMenu={true}
                 />
 
-                <Text style={styles.content}>Hello, I am ProductFeed! </Text>
+                {productsList}
+
+
             </>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    content: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+    name: {
+
     }
 });
 
