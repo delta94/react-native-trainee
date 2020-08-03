@@ -1,24 +1,19 @@
 import React from 'react';
 import 'react-native-vector-icons';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Image,
-  Button
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ProductFeed from './screens/ProductFeed/ProductFeed';
+import ProductFeed from './screens/ProductFeed/ProductFeed/ProductFeed';
 import ManagerProductFeed from './screens/ManagerProductFeed/ManagerProductFeed';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from './reducers'
+import thunk from 'redux-thunk';
 
-
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 //const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -33,26 +28,28 @@ class App extends React.Component {
 
     return (
       <>
-        <NavigationContainer>
+        <Provider store={store}>
+          <NavigationContainer>
 
-          <Drawer.Navigator
-            initialRouteName="ProductFeed"
-            drawerStyle={{
-              //
-            }}
-            drawerContentOptions={{
-              activeTintColor: '#ac37b6',
-              itemStyle: { marginVertical: 5 },
-            }}
-          >
-            <Drawer.Screen name="My Shop"  >
-              {props => <ProductFeed {...props} extraData={someData} />}
-            </Drawer.Screen>
+            <Drawer.Navigator
+              initialRouteName="ProductFeed"
+              drawerStyle={{
+                //
+              }}
+              drawerContentOptions={{
+                activeTintColor: '#ac37b6',
+                itemStyle: { marginVertical: 5 },
+              }}
+            >
+              <Drawer.Screen name="My Shop"  >
+                {props => <ProductFeed {...props} extraData={someData} />}
+              </Drawer.Screen>
 
-            <Drawer.Screen name="Your Products" component={ManagerProductFeed} />
+              <Drawer.Screen name="Your Products" component={ManagerProductFeed} />
 
-          </Drawer.Navigator>
-        </NavigationContainer>
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </Provider>
       </>
     );
   }

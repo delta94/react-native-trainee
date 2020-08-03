@@ -1,6 +1,6 @@
 
 import React from 'react'
-import MainLayout from '../../components/Layout/MainLayout';
+import MainLayout from '../../../components/Layout/MainLayout';
 import {
     StyleSheet,
     View,
@@ -8,6 +8,8 @@ import {
     Image,
     Button
 } from 'react-native';
+import { connect } from 'react-redux';
+import ProductItem from '../ProductItem/ProductItem'
 
 class ProductFeed extends React.Component {
 
@@ -16,7 +18,7 @@ class ProductFeed extends React.Component {
     }
 
     renderProductsList = () => {
-        let products = []; //from redux
+        let { products } = this.props;
         if (!products) {
             return (<Text>Products is empty.</Text>);
         }
@@ -24,7 +26,7 @@ class ProductFeed extends React.Component {
         return (
             <View>
                 {products.map((product) => {
-                    return <View> {product}</View> //product item component
+                    return <ProductItem product={product}/> 
                 })}
             </View>);
     }
@@ -42,8 +44,8 @@ class ProductFeed extends React.Component {
                     showThreeDotsMenu={true}
                 />
 
-                {productsList}
 
+                {productsList}
 
             </>
         );
@@ -56,4 +58,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ProductFeed;
+const mapStateToProps = (state) => {
+    return {
+        products: state.productFeed.products
+    };
+};
+
+export default connect(mapStateToProps)(ProductFeed);
