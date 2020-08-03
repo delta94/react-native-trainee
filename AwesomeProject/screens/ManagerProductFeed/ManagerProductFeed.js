@@ -3,20 +3,20 @@ import React from 'react'
 import { Text, StyleSheet, Button } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 
+import MainLayout from '../../components/Layout/MainLayout';
 
 class ManagerProductFeed extends React.Component {
 
     constructor(props) {
-        super(props) 
+        super(props)
     }
     render() {
-        
+
         return (
             <>
+                <MainLayout navigation={this.props.navigation} screenTitle='Your Products'/>
+
                 <Text style={styles.content}>Hello, I am ManagerProductFeed! id is</Text>
-                    
-                <Button title="Go back" onPress={() => this.props.navigation.goBack()} />
-                <Button title="open nav" onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())} />
             </>
         );
     }

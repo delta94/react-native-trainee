@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Text, StyleSheet, Button } from 'react-native';
-
+import MainLayout from '../../components/Layout/MainLayout';
 
 
 class ProductFeed extends React.Component {
@@ -12,16 +12,14 @@ class ProductFeed extends React.Component {
     render() {
         return (
             <>
-               
-                <Text style={styles.content}>Hello, I am ProductFeed! </Text>
+                <MainLayout
+                    navigation={this.props.navigation}
+                    screenTitle='My Shop'
+                    showShoppingBasket={true}
+                    showThreeDotsMenu={true}
+                />
 
-                <Button
-                    title="Go to ManagerProductFeed"
-                    onPress={() => this.props.navigation.navigate('ManagerProductFeed', {
-                        itemId: 90
-                    })}
-                >
-                </Button>
+                <Text style={styles.content}>Hello, I am ProductFeed! </Text>
             </>
         );
     }
