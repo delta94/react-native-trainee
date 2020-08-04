@@ -9,6 +9,7 @@ import {
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
 class MainLayout extends React.Component {
     constructor(props) {
@@ -16,16 +17,24 @@ class MainLayout extends React.Component {
 
     }
     getLeftHeaderConponent = () => {
+        let { isGoBackActive } = this.props;
         if (this.props.navigation) {
             return (
                 <>
-                    <IoniconsIcon
-                        name="menu"
-                        color="white"
-                        size={25}
-                        onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
-                    />
-
+                    {!isGoBackActive
+                        ? <IoniconsIcon
+                            name="menu"
+                            color="white"
+                            size={25}
+                            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
+                        />
+                        : <FeatherIcon
+                            name="arrow-left"
+                            color="white"
+                            size={25}
+                            onPress={() => this.props.navigation.goBack()}
+                        />
+                    }
                 </>
             );
         }

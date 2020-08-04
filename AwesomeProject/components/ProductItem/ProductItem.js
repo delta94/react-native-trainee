@@ -16,19 +16,24 @@ class ProductItem extends React.Component {
         super(props)
     }
 
+   
+
     render() {
         let { product } = this.props;
         let image = { uri: `${product.ImageUrl}` };
         return (
             <>
-                <View style={styles.itemView}>
-                    <Image source={image} style={styles.productImage} />
+                <View
+                    style={styles.itemView}
+                    onStartShouldSetResponder={() => this.props.navigateToProductDetails(product.Id)}
+                >
+                    <Image source={image} style={styles.productImage} onPress={() => alert('aa')}/>
                     <View style={styles.itemFooter}>
                         <FeatherIcon
                             style={styles.heartIcon}
                             name='heart'
                             size={25}
-                            onPress={() => null}
+                            onPress={() => alert('aa')}
                         />
                         <Text style={styles.title}>{product.Title}</Text>
                         <SimpleLineIcon
@@ -40,7 +45,8 @@ class ProductItem extends React.Component {
                     </View>
 
                 </View>
-            </>);
+            </>
+        );
     }
 }
 
@@ -52,6 +58,7 @@ const styles = StyleSheet.create({
     },
     itemView: {
         margin: 10,
+        width: '45%'
 
     },
     itemFooter: {

@@ -16,6 +16,9 @@ class ProductFeed extends React.Component {
     constructor(props) {
         super(props)
     }
+    navigateToProductDetails = (itemId) => {
+        this.props.navigation.navigate('ProductDetails', { itemId: itemId });
+    }
 
     renderProductsList = () => {
         let { products } = this.props;
@@ -25,8 +28,12 @@ class ProductFeed extends React.Component {
 
         return (
             <View style={styles.productsList}>
-                {products.map((product, index) => {
-                    return <ProductItem key={index} product={product}/> 
+                {products.map((product) => {
+                    return <ProductItem
+                        key={product.Id}
+                        product={product}
+                        navigateToProductDetails={this.navigateToProductDetails}
+                    />
                 })}
             </View>);
     }
@@ -53,7 +60,8 @@ class ProductFeed extends React.Component {
 
 const styles = StyleSheet.create({
     productsList: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 });
 

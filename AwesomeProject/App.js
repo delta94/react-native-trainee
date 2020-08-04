@@ -8,9 +8,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ProductFeed from './screens/ProductFeed/ProductFeed/ProductFeed';
 import ManagerProductFeed from './screens/ManagerProductFeed/ManagerProductFeed';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import ProductDetails from './screens/ProductDetails/ProductDetails';
 import rootReducer from './reducers'
+import { Provider } from 'react-redux'
+
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -21,11 +23,7 @@ const someData = {};
 
 class App extends React.Component {
 
-
-
   render() {
-
-
     return (
       <>
         <Provider store={store}>
@@ -46,6 +44,7 @@ class App extends React.Component {
               </Drawer.Screen>
 
               <Drawer.Screen name="Your Products" component={ManagerProductFeed} />
+              <Drawer.Screen name="ProductDetails" component={ProductDetails} />
 
             </Drawer.Navigator>
           </NavigationContainer>

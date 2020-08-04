@@ -16,7 +16,7 @@ class ManagerProductFeed extends React.Component {
             <>
                 <MainLayout navigation={this.props.navigation} screenTitle='Your Products'/>
 
-                <Text style={styles.content}>Hello, I am ManagerProductFeed! id is</Text>
+                <Text style={styles.content}>ManagerProductFeed</Text>
             </>
         );
     }
