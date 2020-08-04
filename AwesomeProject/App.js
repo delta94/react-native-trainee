@@ -17,7 +17,13 @@ import thunk from 'redux-thunk';
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
-//const Stack = createStackNavigator();
+class Hidden extends React.Component {
+  render() {
+    return null;
+  }
+}
+const hidden = <Hidden />;
+const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const someData = {};
 
@@ -44,7 +50,7 @@ class App extends React.Component {
               </Drawer.Screen>
 
               <Drawer.Screen name="Your Products" component={ManagerProductFeed} />
-              <Drawer.Screen name="ProductDetails" component={ProductDetails} />
+              <Drawer.Screen name="ProductDetails" component={ProductDetails} options={{ drawerLabel: ''}} />
 
             </Drawer.Navigator>
           </NavigationContainer>

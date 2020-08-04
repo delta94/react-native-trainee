@@ -27,13 +27,13 @@ class ProductItem extends React.Component {
                     style={styles.itemView}
                     onStartShouldSetResponder={() => this.props.navigateToProductDetails(product.Id)}
                 >
-                    <Image source={image} style={styles.productImage} onPress={() => alert('aa')}/>
+                    <Image source={image} style={styles.productImage} />
                     <View style={styles.itemFooter}>
                         <FeatherIcon
                             style={styles.heartIcon}
                             name='heart'
                             size={25}
-                            onPress={() => alert('aa')}
+                            onPress={() => null}
                         />
                         <Text style={styles.title}>{product.Title}</Text>
                         <SimpleLineIcon
