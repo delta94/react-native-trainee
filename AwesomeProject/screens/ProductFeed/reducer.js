@@ -11,7 +11,7 @@ const initialState = {
             Title: 'Trousers',
             Price: 35,
             Description: 'Stylish mens throusers',
-            ImageUrl: 'https://www.kingsize.com.au/user/images/19434_1000_1000.jpg?t=1711240916'
+            ImageUrl: 'https://agnesb-agnesb-com-storage.omn.proximis.com/Imagestorage/imagesSynchro/0/0/0a82767dab00426169ea376c94411d75219196fd_Y213US05_000_1.jpeg'
         },
         {
             Title: 'Yellow...',

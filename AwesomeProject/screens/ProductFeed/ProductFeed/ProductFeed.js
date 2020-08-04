@@ -9,7 +9,7 @@ import {
     Button
 } from 'react-native';
 import { connect } from 'react-redux';
-import ProductItem from '../ProductItem/ProductItem'
+import ProductItem from '../../../components/ProductItem/ProductItem'
 
 class ProductFeed extends React.Component {
 
@@ -24,9 +24,9 @@ class ProductFeed extends React.Component {
         }
 
         return (
-            <View>
-                {products.map((product) => {
-                    return <ProductItem product={product}/> 
+            <View style={styles.productsList}>
+                {products.map((product, index) => {
+                    return <ProductItem key={index} product={product}/> 
                 })}
             </View>);
     }
@@ -44,7 +44,6 @@ class ProductFeed extends React.Component {
                     showThreeDotsMenu={true}
                 />
 
-
                 {productsList}
 
             </>
@@ -53,8 +52,8 @@ class ProductFeed extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    name: {
-
+    productsList: {
+        flexDirection: 'row'
     }
 });
 
