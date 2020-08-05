@@ -2,12 +2,10 @@
 import React from 'react'
 import MainLayout from '../../../components/Layout/MainLayout';
 import {
-    StyleSheet,
     View,
-    Text,
-    Image,
-    Button
+    Text
 } from 'react-native';
+import { styles } from './styles'
 import { connect } from 'react-redux';
 import ProductItem from '../../../components/ProductItem/ProductItem'
 
@@ -16,6 +14,7 @@ class ProductFeed extends React.Component {
     constructor(props) {
         super(props)
     }
+
     navigateToProductDetails = (itemId) => {
         this.props.navigation.navigate('ProductDetails', { itemId: itemId });
     }
@@ -35,7 +34,8 @@ class ProductFeed extends React.Component {
                         navigateToProductDetails={this.navigateToProductDetails}
                     />
                 })}
-            </View>);
+            </View>
+        );
     }
 
     render() {
@@ -57,13 +57,6 @@ class ProductFeed extends React.Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    productsList: {
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    }
-});
 
 const mapStateToProps = (state) => {
     return {

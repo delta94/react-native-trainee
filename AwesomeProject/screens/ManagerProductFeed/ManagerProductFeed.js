@@ -15,19 +15,9 @@ class ManagerProductFeed extends React.Component {
         return (
             <>
                 <MainLayout navigation={this.props.navigation} screenTitle='Your Products'/>
-
-                <Text style={styles.content}>ManagerProductFeed</Text>
             </>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    content: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
 
 export default ManagerProductFeed;
