@@ -21,9 +21,10 @@ class ProductItem extends React.Component {
         return (
             <>
                 <View style={styles.itemView}>
-                    <TouchableOpacity
-                        onPress={() => this.props.navigateToProductDetails(product.Id)}>
+                    <TouchableOpacity onPress={() => this.props.navigateToProductDetails(product.Id)}>
+
                         <Image source={{ uri: product.ImageUrl }} style={styles.productImage} />
+
                         <View style={styles.itemFooter}>
                             <FeatherIcon
                                 style={styles.heartIcon}
@@ -31,7 +32,9 @@ class ProductItem extends React.Component {
                                 size={25}
                                 onPress={() => null}
                             />
+
                             <Text style={styles.productTitle}>{product.Title}</Text>
+
                             <SimpleLineIcon
                                 style={styles.shoppingBasketIcon}
                                 name="basket"
@@ -39,6 +42,7 @@ class ProductItem extends React.Component {
                                 onPress={() => null}
                             />
                         </View>
+                        
                     </TouchableOpacity>
                 </View>
             </>

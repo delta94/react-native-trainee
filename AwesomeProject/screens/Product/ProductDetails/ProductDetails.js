@@ -2,8 +2,7 @@ import React from 'react';
 import {
     View,
     Text,
-    Image,
-    Button
+    Image
 } from 'react-native';
 import MainLayout from '../../../components/Layout/MainLayout';
 import { connect } from 'react-redux';
@@ -32,17 +31,14 @@ class ProductDetails extends React.Component {
 
                     <Text style={styles.fieldLabel}>Title</Text>
                     <Text style={styles.fieldValue}>{Title}</Text>
-
                     <Divider style={styles.divider} />
 
                     <Text style={styles.fieldLabel}>Price</Text>
                     <Text style={styles.fieldValue}>{Price}</Text>
-
                     <Divider style={styles.divider} />
 
                     <Text style={styles.fieldLabel}>Description</Text>
                     <Text style={styles.fieldValue}>{Description}</Text>
-
                     <Divider style={styles.divider} />
 
                     <View style={styles.imageView}>

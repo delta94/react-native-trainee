@@ -19,7 +19,7 @@ class ProductFeed extends React.Component {
 
     renderProductsList = () => {
         let { products } = this.props;
-        if (!products) {
+        if (!products || products.length <= 0) {
             return (<Text>Products is empty.</Text>);
         }
 
