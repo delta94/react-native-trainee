@@ -21,15 +21,17 @@ class MainLayout extends React.Component {
             return (
                 <>
                     {!isGoBackActive
-                        ? <IoniconsIcon
+                        ? <IoniconsIcon.Button
                             name="menu"
                             color="white"
+                            backgroundColor='#ac37b6'
                             size={25}
                             onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
                         />
-                        : <FeatherIcon
+                        : <FeatherIcon.Button
                             name="arrow-left"
                             color="white"
+                            backgroundColor='#ac37b6'
                             size={25}
                             onPress={() => this.props.navigation.goBack()}
                         />
@@ -47,19 +49,20 @@ class MainLayout extends React.Component {
                 <>
                     <View style={styles.rightHeaderComponent}>
                         {showThreeDotsMenu
-                            ? <EntypoIcon
+                            ? <EntypoIcon.Button
                                 name='dots-three-vertical'
                                 color="white"
                                 size={25}
+                                backgroundColor='#ac37b6'
                                 onPress={() => null}
                             /> : null}
 
                         {showShoppingBasket
-                            ? <SimpleLineIcon
-                                style={styles.shoppingBasket}
+                            ? <SimpleLineIcon.Button
                                 name="basket"
                                 color="white"
                                 size={25}
+                                backgroundColor='#ac37b6'
                                 onPress={() => null}
                             />
                             : null}

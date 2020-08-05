@@ -2,11 +2,10 @@
 import React from 'react'
 
 import { NavigationContainer } from '@react-navigation/native';
-//import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ProductFeed from '../../screens/ProductFeed/ProductFeed/ProductFeed';
-import ManagerProductFeed from '../../screens/ManagerProductFeed/ManagerProductFeed';
-import ProductDetails from '../../screens/ProductDetails/ProductDetails';
+import ProductFeed from '../../screens/Product/ProductFeed/ProductFeed';
+import ManagerProductFeed from '../../screens/Product/ManagerProductFeed/ManagerProductFeed';
+import ProductDetails from '../../screens/Product/ProductDetails/ProductDetails';
 import { styles } from './styles'
 
 const Drawer = createDrawerNavigator();

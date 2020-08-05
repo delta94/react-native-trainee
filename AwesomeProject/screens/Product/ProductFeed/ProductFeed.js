@@ -1,13 +1,11 @@
 
 import React from 'react'
 import MainLayout from '../../../components/Layout/MainLayout';
-import {
-    View,
-    Text
-} from 'react-native';
+import { View, Text } from 'react-native';
 import { styles } from './styles'
 import { connect } from 'react-redux';
 import ProductItem from '../../../components/ProductItem/ProductItem'
+
 
 class ProductFeed extends React.Component {
 

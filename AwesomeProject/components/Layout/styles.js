@@ -12,8 +12,5 @@ export const styles = StyleSheet.create({
     },
     rightHeaderComponent: {
         flexDirection: 'row'
-    },
-    shoppingBasket: {
-        marginLeft: 20
     }
 });

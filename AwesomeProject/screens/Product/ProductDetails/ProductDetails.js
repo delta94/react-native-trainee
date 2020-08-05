@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     Image,
     Button
 } from 'react-native';
-import MainLayout from '../../components/Layout/MainLayout';
+import MainLayout from '../../../components/Layout/MainLayout';
 import { connect } from 'react-redux';
 import { Divider } from 'react-native-elements';
-import {styles } from './styles'
+import { styles } from './styles'
+
+
 class ProductDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -23,7 +24,6 @@ class ProductDetails extends React.Component {
         const { itemId } = this.props.route.params;
 
         let { Title, Price, Description, ImageUrl } = this.getProductById(itemId);
-        let image = { uri: `${ImageUrl}` };
 
         return (
             <>
@@ -47,7 +47,7 @@ class ProductDetails extends React.Component {
 
                     <View style={styles.imageView}>
                         <View style={styles.productImageBox}>
-                            <Image source={image} style={styles.productImage} />
+                            <Image source={{ uri: ImageUrl }} style={styles.productImage} />
                         </View>
 
                         <View style={styles.imageUrl}>
@@ -58,7 +58,8 @@ class ProductDetails extends React.Component {
                     </View>
 
                 </View>
-            </>);
+            </>
+        );
     }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-native-vector-icons';
 import 'react-native-gesture-handler';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import rootReducer from './reducers'
 import { Provider } from 'react-redux'
 import DrawerNavigator from './components/Navigation/DrawerNavigator'
