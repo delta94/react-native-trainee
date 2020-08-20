@@ -40,34 +40,26 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
     });
   }
 
-  getLeftComponentForHeader = () => {
-    return (
-      <>
-        <MaterialIconsIcon.Button
-          name="arrow-back"
-          color="black"
-          backgroundColor='#f2f2f2'
-          size={25}
-          onPress={() => this.props.navigation.goBack()}
-        />
-        <Text style={{ fontSize: 20 }}>{SignUp.title}</Text>
-
-      </>
-    );
-  }
   render() {
     return (
       <>
         <StatusBar barStyle='dark-content' />
 
-        <View>
+        <View style={styles.signUpContainer}>
 
-          <Header
-            containerStyle={styles.signUpHeader}
-            leftComponent={this.getLeftComponentForHeader()}
-            centerComponent={<></>}
-            rightComponent={<></>}
-          />
+          <View style={styles.header}>
+
+            <MaterialIconsIcon
+              name="arrow-back"
+              color="black"
+              size={25}
+              onPress={() => this.props.navigation.goBack()}
+              style={styles.goBackIcon}
+            />
+            <Text style={styles.headerText}>{SignUp.title}</Text>
+
+          </View>
+
           <View style={styles.pageDescriptionView}>
             <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
           </View>
@@ -170,7 +162,7 @@ const styles = StyleSheet.create({
 
   },
   pageDescriptionView: {
-    backgroundColor: '#f2f2f2',
+    //backgroundColor: '#f2f2f2',
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -195,7 +187,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: '92%',
     color: 'black',
-    backgroundColor: '#ebebeb',
+    //backgroundColor: '#ebebeb',
     marginTop: 50
   },
   signUpButtonView: {
@@ -206,6 +198,24 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ebebeb',
     borderBottomWidth: 1,
   },
+
+  header: {
+    //backgroundColor: '#f2f2f2',
+    flexDirection: 'row',
+    marginLeft: 15,
+    marginTop: 60
+  },
+  goBackIcon: {
+
+  },
+  headerText: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    marginLeft: 20
+  },
+  signUpContainer : {
+    backgroundColor : 'white'
+  }
 });
 
 export default SignUp;

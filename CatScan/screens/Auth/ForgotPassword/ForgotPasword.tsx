@@ -19,6 +19,7 @@ import { AppState } from '../../../reducers';
 import { Button, InputItem } from '@ant-design/react-native';
 import { Input, Header } from 'react-native-elements';
 
+import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 
 interface OwnStateProps {
     email: string;
@@ -63,10 +64,18 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                     </View>
 
                     <View style={styles.header}>
-                        <>
-                            <Text style={styles.headerText}>{ForgotPassword.title}</Text>
-                        </>
+
+                        <MaterialIconsIcon
+                            name="arrow-back"
+                            color="black"
+                            size={25}
+                            onPress={() => this.props.navigation.goBack()}
+                            style={styles.goBackIcon}
+                        />
+                        <Text style={styles.headerText}>{ForgotPassword.title}</Text>
+
                     </View>
+
                     <View style={styles.pageDescriptionView}>
                         <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
                     </View>
@@ -84,8 +93,8 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                         />
 
                         <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
-                            <Text style={{ fontWeight : 'bold'}}>Restore password</Text>
-                            </Button>
+                            <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
+                        </Button>
 
                     </View>
 
@@ -104,7 +113,6 @@ const styles = StyleSheet.create({
         height: 70,
         paddingLeft: 20,
         backgroundColor: '#f7f7f7',
-        marginTop: 15,
         fontSize: 17,
         borderRadius: 10,
 
@@ -122,7 +130,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     forgotContainer: {
-        marginTop: 25,
+        marginTop: 15,
         margin: 15,
         marginBottom: 30
     },
@@ -140,7 +148,7 @@ const styles = StyleSheet.create({
 
     },
     forgotPasswordLayout: {
-
+        backgroundColor: 'white'
     },
     signUpLinksView: {
         alignItems: 'center',
@@ -153,13 +161,17 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: 'white',
-        marginTop: 25,
-        marginLeft: 20
+        flexDirection: 'row',
+        marginLeft: 15,
+        marginTop: 20
+    },
+    goBackIcon: {
 
     },
     headerText: {
         fontSize: 23,
-        fontWeight : 'bold'
+        fontWeight: 'bold',
+        marginLeft: 20
     },
     pageDescriptionView: {
         backgroundColor: 'white',
@@ -170,12 +182,12 @@ const styles = StyleSheet.create({
         margin: 20
 
     },
-    restorePasswordButton : {
-        marginTop : 125,
+    restorePasswordButton: {
+        marginTop: 155,
         height: 60,
         color: 'black',
         backgroundColor: '#ebebeb',
-       
+
     }
 });
 

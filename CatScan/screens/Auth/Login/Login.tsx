@@ -54,6 +54,9 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
     navigateToSignUp = () => {
         this.props.navigation.navigate('SignUp');
     }
+    navigateToForgotPasswprd = () => {
+        this.props.navigation.navigate('ForgotPassword');
+    }
 
     render() {
         return (
@@ -81,7 +84,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                             defaultValue="1qaz@WSX"
                             containerStyle={[styles.textInput, styles.passwordInput]}
                             leftIcon={<Text></Text>}
-                            rightIcon={<Text>Forgot?</Text>}
+                            rightIcon={<Text onPress={this.navigateToForgotPasswprd}>Forgot?</Text>}
 
                         />
 
