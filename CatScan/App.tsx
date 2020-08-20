@@ -11,7 +11,6 @@ import thunk from 'redux-thunk';
 
 import AppNavigator from './components/Navigation/AppNavigator/AppNavigator';
 import AuthProvider from './components/Auth/AuthProvider';
-
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const App = () => {

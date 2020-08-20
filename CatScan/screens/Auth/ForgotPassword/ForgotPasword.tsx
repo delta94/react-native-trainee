@@ -57,54 +57,55 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
     render() {
         return (
             <>
-                <View style={styles.forgotPasswordLayout}>
+                <ScrollView>
+                    <View style={styles.forgotPasswordLayout}>
 
-                    <View style={styles.logoImageView}>
-                        <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                        <View style={styles.logoImageView}>
+                            <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                        </View>
+
+                        <View style={styles.header}>
+
+                            <MaterialIconsIcon
+                                name="arrow-back"
+                                color="black"
+                                size={25}
+                                onPress={() => this.props.navigation.goBack()}
+                                style={styles.goBackIcon}
+                            />
+                            <Text style={styles.headerText}>{ForgotPassword.title}</Text>
+
+                        </View>
+
+                        <View style={styles.pageDescriptionView}>
+                            <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
+                        </View>
+
+                        <View style={styles.forgotContainer}>
+
+
+                            <Input
+                                placeholder="Email"
+                                onChangeText={text => this.setState({ email: text })}
+                                defaultValue="auth@au.com"
+                                containerStyle={styles.textInput}
+                                leftIcon={<Text></Text>}
+                                inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                            />
+
+                            <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
+                                <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
+                            </Button>
+
+                        </View>
+
                     </View>
-
-                    <View style={styles.header}>
-
-                        <MaterialIconsIcon
-                            name="arrow-back"
-                            color="black"
-                            size={25}
-                            onPress={() => this.props.navigation.goBack()}
-                            style={styles.goBackIcon}
-                        />
-                        <Text style={styles.headerText}>{ForgotPassword.title}</Text>
-
-                    </View>
-
-                    <View style={styles.pageDescriptionView}>
-                        <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
-                    </View>
-
-                    <View style={styles.forgotContainer}>
-
-
-                        <Input
-                            placeholder="Email"
-                            onChangeText={text => this.setState({ email: text })}
-                            defaultValue="auth@au.com"
-                            containerStyle={styles.textInput}
-                            leftIcon={<Text></Text>}
-                            inputContainerStyle={{borderBottomWidth: 0, marginTop : 10 }}
-
-                        />
-
-                        <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
-                            <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
-                        </Button>
-
-                    </View>
-
-                </View>
+                </ScrollView>
             </>
         );
     }
 };
-
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         marginLeft: 15,
-        marginTop: 20 
+        marginTop: 20
     },
     goBackIcon: {
 

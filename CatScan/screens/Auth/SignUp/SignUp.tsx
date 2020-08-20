@@ -14,12 +14,39 @@ import { Button, InputItem } from '@ant-design/react-native';
 import UserPool from '../../../Auth/configs/UserPool';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Input } from 'react-native-elements';
+import { signUp } from '../actions';
+import { connect } from 'react-redux';
+import { AppState } from '../../../reducers';
+
 interface OwnStateProps {
   email: string;
   password: string;
+  repeatPassword: string;
+  firstName: string;
+  lastName: string;
+
+  companyName: string;
+  phoneNumber: string;
+  zipCode: string;
 }
 
-class SignUp extends React.Component<any & any & any, OwnStateProps> {
+interface DispatchFromProps {
+  signUp: (
+    email: string,
+    password: string,
+    phoneNumber: string,
+    firstName: string,
+    lastName: string,
+    companyName: string,
+    zipCode: string
+  ) => void
+}
+interface StateFromProps {
+
+}
+
+
+class SignUp extends React.Component<any & StateFromProps & DispatchFromProps, OwnStateProps> {
   static title: string = "Sign Up";
 
   constructor(props: any) {
@@ -27,103 +54,116 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      firstName: '',
+      lastName: '',
+      companyName: '',
+      phoneNumber: '',
+      zipCode: '',
+
+      repeatPassword: '',
     }
   }
 
   onSubmit = (event: any) => {
     event.preventDefault();
 
-    UserPool.signUp(this.state.email, this.state.password, [], [], (err, data) => {
-      if (err) console.log(err);
-      console.log(data);
-    });
+    if (this.state.password !== this.state.repeatPassword) {
+
+    }
+    else {
+      let { email, password, phoneNumber, firstName, lastName, companyName, zipCode } = this.state;
+      this.props.signUp(email, password, phoneNumber, firstName, lastName, companyName, zipCode)
+    }
+
   }
 
   render() {
     return (
       <>
-        <StatusBar barStyle='dark-content' />
+        <ScrollView>
+          <StatusBar barStyle='dark-content' />
 
-        <View style={styles.signUpContainer}>
+          <View style={styles.signUpContainer}>
 
-          <View style={styles.header}>
+            <View style={styles.header}>
 
-            <MaterialIconsIcon
-              name="arrow-back"
-              color="black"
-              size={25}
-              onPress={() => this.props.navigation.goBack()}
-              style={styles.goBackIcon}
-            />
-            <Text style={styles.headerText}>{SignUp.title}</Text>
-
-          </View>
-
-          <View style={styles.pageDescriptionView}>
-            <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
-          </View>
-          <View style={styles.credentialsInputs}>
-
-            <TextInput
-              placeholder="Enter Email"
-              onChangeText={text => this.setState({ email: text })}
-              style={[styles.textInput]}
-
-            />
-            <TextInput
-              placeholder='Enter Password'
-              onChangeText={text => this.setState({ password: text })}
-              style={[styles.textInput]}
-            />
-            <TextInput
-              placeholder='Repeat Password'
-              onChangeText={text => null}
-              style={[styles.textInput]}
-            />
-          </View>
-
-          <View style={styles.line} />
-
-          <View style={styles.personalInfoInputs}>
-
-            <View style={styles.firstAndLastNames}>
-
-              <TextInput
-                placeholder='First Name'
-                onChangeText={text => null}
-                style={[styles.textInput, styles.firstName]}
+              <MaterialIconsIcon
+                name="arrow-back"
+                color="black"
+                size={25}
+                onPress={() => this.props.navigation.goBack()}
+                style={styles.goBackIcon}
               />
+              <Text style={styles.headerText}>{SignUp.title}</Text>
+
+            </View>
+
+            <View style={styles.pageDescriptionView}>
+              <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
+            </View>
+            <View style={styles.credentialsInputs}>
 
               <TextInput
-                placeholder='Last Name'
-                onChangeText={text => null}
-                style={[styles.textInput, styles.lastName]}
+                placeholder="Enter Email"
+                onChangeText={text => this.setState({ email: text })}
+                style={[styles.textInput]}
 
+              />
+              <TextInput
+                placeholder='Enter Password'
+                onChangeText={text => this.setState({ password: text })}
+                style={[styles.textInput]}
+              />
+              <TextInput
+                placeholder='Repeat Password'
+                onChangeText={text => this.setState({ repeatPassword: text })}
+                style={[styles.textInput]}
               />
             </View>
-            <TextInput
-              placeholder="Company name (optinal)"
-              onChangeText={text => this.setState({ email: text })}
-              style={[styles.textInput]}
 
-            />
-            <TextInput
-              placeholder='Phone number (optinal)'
-              onChangeText={text => this.setState({ password: text })}
-              style={[styles.textInput]}
-            />
-            <TextInput
-              placeholder='Zip code'
-              onChangeText={text => this.setState({ password: text })}
-              style={[styles.textInput, styles.zipCode]}
-            />
-          </View>
-          <View style={styles.signUpButtonView}>
-            <Button onPress={this.onSubmit} style={styles.signUpButton}>Sign Up</Button>
-          </View>
+            <View style={styles.line} />
 
-        </View>
+            <View style={styles.personalInfoInputs}>
+
+              <View style={styles.firstAndLastNames}>
+
+                <TextInput
+                  placeholder='First Name'
+                  onChangeText={text => this.setState({ firstName: text })}
+                  style={[styles.textInput, styles.firstName]}
+                />
+
+                <TextInput
+                  placeholder='Last Name'
+                  onChangeText={text => this.setState({ lastName: text })}
+                  style={[styles.textInput, styles.lastName]}
+
+                />
+              </View>
+              <TextInput
+                placeholder="Company name (optinal)"
+                onChangeText={text => this.setState({ companyName: text })}
+                style={[styles.textInput]}
+
+              />
+              <TextInput
+                placeholder='Phone number (optinal)'
+                onChangeText={text => this.setState({ phoneNumber: text })}
+                style={[styles.textInput]}
+              />
+              <TextInput
+                placeholder='Zip code'
+                onChangeText={text => this.setState({ zipCode: text })}
+                style={[styles.textInput, styles.zipCode]}
+              />
+            </View>
+            <View style={styles.signUpButtonView}>
+              <Button onPress={this.onSubmit} style={styles.signUpButton}>Sign Up</Button>
+            </View>
+
+          </View>
+        </ScrollView>
       </>
     );
   }
@@ -205,7 +245,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 15,
     // marginTop: 60 //ios
-     marginTop: 30 //android
+    marginTop: 30 //android
   },
   goBackIcon: {
 
@@ -215,12 +255,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 20
   },
-  signUpContainer : {
-    backgroundColor : 'white',
+  signUpContainer: {
+    backgroundColor: 'white',
     //marginTop : 20, //ios
-    height : '100%'
+    height: '100%'
   }
 });
 
-export default SignUp;
+
+export default connect<StateFromProps, DispatchFromProps, any, AppState>(null, {
+  signUp
+})(SignUp);
 

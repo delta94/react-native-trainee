@@ -1,11 +1,10 @@
 
-import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import { CognitoUser, AuthenticationDetails, CognitoUserAttribute, ICognitoUserAttributeData } from 'amazon-cognito-identity-js';
 import Pool from '../configs/UserPool';
-import { _storeToken } from './localStorage';
+import { _storeToken2, _retrieveToken, _removeToken } from './localStorage';
 
-
-export const getSession = async () => {
-    await new Promise((resolve, reject) => {
+export const getSession = (): any => {
+    return new Promise((resolve, reject) => {
         const user = Pool.getCurrentUser();
 
         if (user) {
@@ -16,7 +15,7 @@ export const getSession = async () => {
                 else {
                     console.log('getSession1', session);
                     resolve(session);
-                    
+
                 }
             })
         } else {
@@ -25,8 +24,8 @@ export const getSession = async () => {
     });
 }
 
-export const authenticate = async (Username: any, Password: any) => {
-    await new Promise((resolve, reject) => {
+export const authenticate = (Username: any, Password: any): any => {
+    return new Promise((resolve, reject) => {
 
         const user = new CognitoUser({ Username, Pool });
         const authDetails = new AuthenticationDetails({ Username, Password });
@@ -34,17 +33,15 @@ export const authenticate = async (Username: any, Password: any) => {
         user.authenticateUser(authDetails, {
             onSuccess: data => {
                 console.log('onSuccess', data);
-                //_storeToken(data);
-                console.log('Puser');
 
+                _storeToken2(data.getAccessToken().getJwtToken(), data.getAccessToken().getExpiration().toString()); //we need to alhorithm to check stored token 
+                
                 resolve(data);
-                return data;
             },
 
             onFailure: err => {
                 console.error('onFailure', err);
                 reject(err);
-                return err;
             },
 
             newPasswordRequired: data => {
@@ -52,13 +49,82 @@ export const authenticate = async (Username: any, Password: any) => {
                 return data;
             }
         })
+        
     })
 }
 
 export const logout = () => {
     const user = Pool.getCurrentUser();
     if (user) {
-        console.log('logout:  ',user);
+        console.log('logout:  ', user);
         user.signOut();
     }
+}
+
+export const signUp = (
+    email: string,
+    password: string,
+    phoneNumber: string,
+    firstName: string,
+    lastName: string,
+    companyName: string,
+    zipCode: string
+): any => {
+
+    let attributeList: CognitoUserAttribute[] = [];
+
+    const dataPhoneNumber: ICognitoUserAttributeData = {
+        Name: 'custom:phoneNumber',
+        Value: phoneNumber
+    };
+    const dataFirstName: ICognitoUserAttributeData = {
+        Name: 'custom:firstName',
+        Value: firstName
+    };
+    const dataLastName: ICognitoUserAttributeData = {
+        Name: 'custom:lastName',
+        Value: lastName
+    };
+    const dataCompanyName: ICognitoUserAttributeData = {
+        Name: 'custom:companyName',
+        Value: companyName
+    };
+    const dataZipCode: ICognitoUserAttributeData = {
+        Name: 'custom:zipCode',
+        Value: zipCode
+    };
+
+    const attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
+    const attributeFirstName = new CognitoUserAttribute(dataFirstName);
+    const attributeLastName = new CognitoUserAttribute(dataLastName);
+    const attributeCompanyName = new CognitoUserAttribute(dataCompanyName);
+    const attributeZipCode = new CognitoUserAttribute(dataZipCode);
+
+    attributeList.push(attributePhoneNumber);
+    attributeList.push(attributeFirstName);
+    attributeList.push(attributeLastName);
+    attributeList.push(attributeCompanyName);
+    attributeList.push(attributeZipCode);
+
+    return new Promise((resolve, reject) => {
+        //attributes is not working
+
+        Pool.signUp(email, password, [], [], (err, data) => {
+            if (err) reject(err), console.log(err);
+            resolve(data); console.log('success', data);
+        });
+
+
+        //way to using custom attributes
+
+        // let user = Pool.getCurrentUser();
+        // console.log(user);
+        // if (user) {
+        //     user.updateAttributes(attributeList, (err: any, result: any) => {
+        //         if (err) console.log(err);
+        //         console.log('updateAttributesSuccess', result);
+        //     })
+        // }
+
+    })
 }

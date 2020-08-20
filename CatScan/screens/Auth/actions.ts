@@ -1,6 +1,6 @@
 
-import { authenticate as login } from '../../Auth/helpers/accounts';
-
+import { authenticate as login, signUp as registrate } from '../../Auth/helpers/accounts';
+import { getActionFailed } from '../../reducers';
 //authenticate
 export enum AUTHENTICATE {
     REQUEST = 'AUTHENTICATE_REQUEST',
@@ -13,26 +13,84 @@ export const authenticateRequest = () => {
     };
 };
 
-export const authenticateSuccess = (response: any) => {
+export const authenticateSuccess = () => {
+
     return {
-        type: AUTHENTICATE.SUCCESS,
-        userData : response
+        type: AUTHENTICATE.SUCCESS
     };
 };
 
 
-export const authenticate = (email: string, password : string) => {
+//authenticate fails
+export enum AUTHENTICATE_FAIL {
+    USER_NOT_CONFIRMED_EXCEPTION = 'USER_NOT_CONFIRMED_EXCEPTION',
+    NOT_AUTHORIZED_EXCEPTION = 'NOT_AUTHORIZED_EXCEPTION'
+
+}
+
+const authenticateFail = (dispatch: any, error: any) => {
+
+    if (error.code === 'UserNotConfirmedException') {
+        dispatch(userNotconfirmed(error.message));
+    }
+    else if (error.code === 'NotAuthorizedException') {
+        dispatch(notAuthorized(error.message))
+    }
+    else {
+        dispatch(getActionFailed(error.message))
+    }
+
+}
+
+
+export const userNotconfirmed = (validationMessage: string) => {
+    return {
+        type: AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION,
+        validationMessage: validationMessage
+    };
+}
+export const notAuthorized = (validationMessage: string) => {
+    return {
+        type: AUTHENTICATE_FAIL.NOT_AUTHORIZED_EXCEPTION,
+        validationMessage: validationMessage
+    };
+}
+
+export const authenticate = (email: string, password: string) => {
     return (dispatch: any) => {
         dispatch(authenticateRequest());
         login(email, password)
-            .then(response => {
-                dispatch(authenticateSuccess(response));
+            .then((data: any) => {
+                dispatch(authenticateSuccess());
             })
             .catch((error: any) => {
-                console.log('ERROR: ',error.response);  //wii be antd alert with good design
+                authenticateFail(dispatch, error)
             });
     };
 };
+
+export const signUp = (
+    email: string,
+    password: string,
+    phoneNumber: string,
+    firstName: string,
+    lastName: string,
+    companyName: string,
+    zipCode: string
+) => {
+    return (dispatch: any) => {
+
+        registrate(email, password, phoneNumber, firstName, lastName, companyName, zipCode)
+            .then((data: any) => {
+                console.log(email, password, 'run auth!');
+                dispatch(authenticate(email, password));
+            })
+            .catch((error: any) => {
+                dispatch(getActionFailed(error.message));
+            });
+    }
+}
+
 
 
 

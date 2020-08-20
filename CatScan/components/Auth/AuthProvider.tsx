@@ -1,4 +1,5 @@
 import React from 'react';
+import { _retrieveToken, _checkExpired } from '../../Auth/helpers/localStorage';
 
 import { connect } from 'react-redux';
 import {
@@ -38,6 +39,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Pool from '../../Auth/configs/UserPool';
 
 import AuthNavigator from '../Navigation/AuthNavigator/AuthNavigator';
 
@@ -68,12 +70,13 @@ class AuthProvider extends React.Component<any & any & any, OwnStateProps> {
     }
 
     render() {
-
-        const isAuthinticated = false;
-
+        
+        const isAuthenticated = _retrieveToken();
+        const ex = _checkExpired();
+        console.log('expired',ex);
         const auth = (<NavigationContainer><AuthNavigator /></NavigationContainer>);
 
-        return !isAuthinticated ? auth : this.props.children;
+        return !isAuthenticated ? auth : this.props.children;
     }
 };
 
@@ -89,7 +92,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
-        userData: state.auth.userData
+        userData: state.auth.userData,
+        isAuthorized : state.auth.isAuthorized
     };
 };
 
