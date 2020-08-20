@@ -89,6 +89,7 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                             defaultValue="auth@au.com"
                             containerStyle={styles.textInput}
                             leftIcon={<Text></Text>}
+                            inputContainerStyle={{borderBottomWidth: 0, marginTop : 10 }}
 
                         />
 
