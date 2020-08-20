@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     loginContainer: {
         // marginTop: 25,
-        // margin: 15,
+        margin: 15,
         marginBottom: 30
     },
     line: {

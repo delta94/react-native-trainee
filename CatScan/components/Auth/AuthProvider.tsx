@@ -20,8 +20,8 @@ import { Button, InputItem } from '@ant-design/react-native';
 import { Input } from 'react-native-elements';
 import SignUp from '../../screens/Auth/SignUp/SignUp';
 import Login from '../../screens/Auth/Login/Login';
-import Status from '../Auth/Status/Status';
-import Logout from '../Auth/Logout/Logout'
+import Status from './Status/Status';
+import Logout from './Logout/Logout'
 import ForgotPassword from '../../screens/Auth/ForgotPassword/ForgotPasword';
 import Home from '../../screens/Home/Home';
 import Settings from '../../screens/Settings/Settings';
@@ -38,8 +38,8 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import AppNavigator from './AppNavigator/AppNavigator';;
-import AuthNavigator from './AuthNavigator/AuthNavigator';
+
+import AuthNavigator from '../Navigation/AuthNavigator/AuthNavigator';
 
 interface OwnStateProps {
     email: string;
@@ -56,7 +56,7 @@ interface StateFromProps {
 }
 
 
-class Auth extends React.Component<any & any & any, OwnStateProps> {
+class AuthProvider extends React.Component<any & any & any, OwnStateProps> {
 
     constructor(props: any) {
         super(props);
@@ -66,16 +66,14 @@ class Auth extends React.Component<any & any & any, OwnStateProps> {
             password: ''
         }
     }
-  
+
     render() {
 
         const isAuthinticated = false;
 
-        return (
-            <NavigationContainer>
-                {!isAuthinticated ? <AuthNavigator /> :  <AppNavigator />}
-            </NavigationContainer>
-        );
+        const auth = (<NavigationContainer><AuthNavigator /></NavigationContainer>);
+
+        return !isAuthinticated ? auth : this.props.children;
     }
 };
 
@@ -97,4 +95,4 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
 
-})(Auth);
+})(AuthProvider);
