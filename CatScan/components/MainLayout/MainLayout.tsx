@@ -38,7 +38,8 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import AppNavigator from '../../components/Navigation/AppNavigator/AppNavigator';;
+import AuthNavigator from '../../components/Navigation/AuthNavigator/AuthNavigator';
 
 interface OwnStateProps {
     email: string;
@@ -54,8 +55,6 @@ interface StateFromProps {
 
 }
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 class MainLayout extends React.Component<any & any & any, OwnStateProps> {
 
@@ -67,74 +66,14 @@ class MainLayout extends React.Component<any & any & any, OwnStateProps> {
             password: ''
         }
     }
-
-    onLogout = (event: any) => {
-        event.preventDefault();
-        //clear
-
-    }
-    navigateToSignUp = () => {
-
-    }
-
+  
     render() {
-
-        const auth = (
-            <Stack.Navigator
-                initialRouteName='Login'
-                screenOptions={{ headerShown: false }}
-            >
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-
-            </Stack.Navigator>
-        );
-
-        const app = (
-            <Tab.Navigator
-                screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
-
-                        color = focused ? 'red' : color;
-
-                        if (route.name === 'Home') {
-                            return <SimpleLineIcons name={'home'} size={size} color={color} />;
-                        }
-                        if (route.name === 'Search') {
-                            return <Octicons name={'search'} size={size} color={color} />;
-                        }
-                        if (route.name === 'Settings') {
-                            return <Feather name={'settings'} size={size} color={color} />;
-                        }
-                        if (route.name === 'BlueButton') {
-                            return <FontAwesome5 name={'football-ball'} size={size} color={'blue'} />;
-                        }
-                        if (route.name === 'Car') {
-                            return <FontAwesome name={'car'} size={size} color={color} />;
-                        }
-                    },
-                })}
-                tabBarOptions={{
-                    activeTintColor: 'tomato',
-                    inactiveTintColor: 'gray'
-                }}
-                initialRouteName="Home"
-            >
-                <Tab.Screen name="Home" component={Home} />
-                <Tab.Screen name="Search" component={Home} />
-                <Tab.Screen name="BlueButton" component={Home} />
-                <Tab.Screen name="Car" component={Home} />
-                <Tab.Screen name="Settings" component={Settings} />
-
-            </Tab.Navigator>
-        );
 
         const isAuthinticated = true;
 
         return (
             <NavigationContainer>
-                {!isAuthinticated ? auth : app}
+                {isAuthinticated ? <AuthNavigator /> :  <AppNavigator />}
             </NavigationContainer>
         );
     }
