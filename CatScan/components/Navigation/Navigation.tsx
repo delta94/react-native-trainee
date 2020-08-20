@@ -69,11 +69,11 @@ class Navigation extends React.Component<any & any & any, OwnStateProps> {
   
     render() {
 
-        const isAuthinticated = true;
+        const isAuthinticated = false;
 
         return (
             <NavigationContainer>
-                {isAuthinticated ? <AuthNavigator /> :  <AppNavigator />}
+                {!isAuthinticated ? <AuthNavigator /> :  <AppNavigator />}
             </NavigationContainer>
         );
     }
