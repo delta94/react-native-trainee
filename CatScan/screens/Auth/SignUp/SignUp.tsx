@@ -12,7 +12,7 @@ import {
 import { Header } from 'react-native-elements';
 import { Button, InputItem } from '@ant-design/react-native';
 import UserPool from '../../../Auth/configs/UserPool';
-
+import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Input } from 'react-native-elements';
 interface OwnStateProps {
   email: string;
@@ -43,6 +43,13 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
   getLeftComponentForHeader = () => {
     return (
       <>
+        <MaterialIconsIcon.Button
+          name="arrow-back"
+          color="black"
+          backgroundColor='#f2f2f2'
+          size={25}
+          onPress={() => this.props.navigation.goBack()}
+        />
         <Text style={{ fontSize: 20 }}>{SignUp.title}</Text>
 
       </>
@@ -54,7 +61,7 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
         <StatusBar barStyle='dark-content' />
 
         <View>
-          
+
           <Header
             containerStyle={styles.signUpHeader}
             leftComponent={this.getLeftComponentForHeader()}
@@ -65,7 +72,7 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
             <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
           </View>
           <View style={styles.credentialsInputs}>
-         
+
             <TextInput
               placeholder="Enter Email"
               onChangeText={text => this.setState({ email: text })}

@@ -20,6 +20,7 @@ import { Button, InputItem } from '@ant-design/react-native';
 import { Input } from 'react-native-elements';
 import SignUp from '../SignUp/SignUp';
 
+import { NavigationProp } from '@react-navigation/native'
 
 interface OwnStateProps {
     email: string;
@@ -34,7 +35,7 @@ interface DispatchFromProps {
 interface StateFromProps {
 
 }
-class Login extends React.Component<any & any & any, OwnStateProps> {
+class Login extends React.Component<StateFromProps & DispatchFromProps & any, OwnStateProps> {
 
     constructor(props: any) {
         super(props);
@@ -51,7 +52,7 @@ class Login extends React.Component<any & any & any, OwnStateProps> {
 
     }
     navigateToSignUp = () => {
-
+        this.props.navigation.navigate('SignUp');
     }
 
     render() {
