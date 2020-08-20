@@ -11,6 +11,7 @@ target 'CatScan' do
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
 
 
+
   target 'CatScanTests' do
     inherit! :complete
     # Pods for testing

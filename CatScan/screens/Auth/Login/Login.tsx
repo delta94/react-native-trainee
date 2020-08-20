@@ -84,7 +84,9 @@ class Login extends React.Component<any & any & any, OwnStateProps> {
 
                         />
 
-                        <Button onPress={this.onSubmit} style={styles.signInButton}>Sign In</Button>
+                        <Button onPress={this.onSubmit} style={styles.signInButton}>
+                            <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
+                        </Button>
 
                     </View>
 
@@ -92,7 +94,7 @@ class Login extends React.Component<any & any & any, OwnStateProps> {
 
                     <View style={styles.signUpLinksView}>
                         <Text style={styles.dontHaveAnAccount} onPress={this.navigateToSignUp}>Don't have an account?</Text>
-                        <Text style={{ fontSize: 20 }} onPress={this.navigateToSignUp}>Sign Up</Text>
+                        <Text style={{ fontSize: 18 }} onPress={this.navigateToSignUp}>Sign Up</Text>
                     </View>
                 </View>
             </>
@@ -149,12 +151,12 @@ const styles = StyleSheet.create({
     },
     signUpLinksView: {
         alignItems: 'center',
-        flexDirection : 'column'
+        flexDirection: 'column'
     },
     dontHaveAnAccount: {
         fontSize: 18,
         color: '#a3a3a3',
-        margin : 30
+        margin: 30
     }
 });
 

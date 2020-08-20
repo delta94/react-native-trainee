@@ -32,7 +32,7 @@ const App = () => {
 
           {/* <Login /> */}
 
-          {/* <SignUp />  */}
+          <SignUp /> 
 
           {/* <Logout />  */}
           {/* <ForgotPassword /> */}

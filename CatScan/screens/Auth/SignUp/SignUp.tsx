@@ -54,6 +54,7 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
         <StatusBar barStyle='dark-content' />
 
         <View>
+          
           <Header
             containerStyle={styles.signUpHeader}
             leftComponent={this.getLeftComponentForHeader()}
@@ -64,6 +65,7 @@ class SignUp extends React.Component<any & any & any, OwnStateProps> {
             <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
           </View>
           <View style={styles.credentialsInputs}>
+         
             <TextInput
               placeholder="Enter Email"
               onChangeText={text => this.setState({ email: text })}
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 
   },
- 
+
   signUpButton: {
     height: 60,
     width: '92%',
