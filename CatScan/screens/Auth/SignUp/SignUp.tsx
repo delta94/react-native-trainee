@@ -188,7 +188,8 @@ const styles = StyleSheet.create({
     width: '92%',
     color: 'black',
     //backgroundColor: '#ebebeb',
-    marginTop: 50
+    //marginTop: 50 //ios
+    marginTop: 20 //android
   },
   signUpButtonView: {
     flexDirection: 'column',
@@ -203,7 +204,8 @@ const styles = StyleSheet.create({
     //backgroundColor: '#f2f2f2',
     flexDirection: 'row',
     marginLeft: 15,
-    marginTop: 60
+    // marginTop: 60 //ios
+     marginTop: 30 //android
   },
   goBackIcon: {
 
@@ -214,7 +216,9 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   signUpContainer : {
-    backgroundColor : 'white'
+    backgroundColor : 'white',
+    //marginTop : 20, //ios
+    height : '100%'
   }
 });
 

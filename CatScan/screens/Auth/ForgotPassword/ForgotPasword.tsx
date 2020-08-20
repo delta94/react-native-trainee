@@ -142,7 +142,8 @@ const styles = StyleSheet.create({
     logoImage: {
         width: 420,
         height: 400,
-        marginTop: 55
+        //marginTop: 55 //ios
+        marginTop: 5 //android
 
     },
     logoImageView: {
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         marginLeft: 15,
-        marginTop: 20
+        marginTop: 20 
     },
     goBackIcon: {
 

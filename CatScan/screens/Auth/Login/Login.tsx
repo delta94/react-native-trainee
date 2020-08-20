@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     loginContainer: {
-        marginTop: 25,
-        margin: 15,
+        // marginTop: 25,
+        // margin: 15,
         marginBottom: 30
     },
     line: {
@@ -149,14 +149,16 @@ const styles = StyleSheet.create({
     loginImage: {
         width: 420,
         height: 400,
-        marginTop: 55
+        //marginTop: 65 //ios
+        marginTop: 5 //android
 
     },
     loginImageView: {
 
     },
     loginLayout: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        height : '100%'
     },
     signUpLinksView: {
         alignItems: 'center',

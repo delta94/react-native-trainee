@@ -307,7 +307,7 @@ PODS:
     - React-Core (= 0.63.2)
     - React-cxxreact (= 0.63.2)
     - React-jsi (= 0.63.2)
-  - RNAWSCognito (4.3.3):
+  - RNAWSCognito (4.3.4):
     - JKBigInteger2 (= 0.0.5)
     - React
   - RNCAsyncStorage (1.12.0):
@@ -524,7 +524,7 @@ SPEC CHECKSUMS:
   React-RCTText: 1b6773e776e4b33f90468c20fe3b16ca3e224bb8
   React-RCTVibration: 4d2e726957f4087449739b595f107c0d4b6c2d2d
   ReactCommon: a0a1edbebcac5e91338371b72ffc66aa822792ce
-  RNAWSCognito: 08567d55159547e8ac2a1ce4350cd44a67f3db96
+  RNAWSCognito: c84eb1020796f0f9ae1112671b0cc775a72080dc
   RNCAsyncStorage: 3eea36d9460c5159b592f9ecbe5a77f8aca98006
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPicker: 494015f2b7ec4bee5484b6f235aa19691426dcdb
