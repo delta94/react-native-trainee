@@ -76,9 +76,9 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                             defaultValue="auth@au.com"
                             containerStyle={styles.textInput}
                             leftIcon={<Text></Text>}
-                            inputContainerStyle={{borderBottomWidth: 0, marginTop : 10 }}
-                            
-                            
+                            inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+
 
                         />
                         <Input
@@ -88,7 +88,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                             containerStyle={[styles.textInput, styles.passwordInput]}
                             leftIcon={<Text></Text>}
                             rightIcon={<Text onPress={this.navigateToForgotPasswprd}>Forgot?</Text>}
-                            inputContainerStyle={{borderBottomWidth: 0, marginTop : 10 }}
+                            inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
 
                         />
 
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         fontSize: 17,
         borderRadius: 10,
-        
+
 
     },
     passwordInput: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 
     },
     loginLayout: {
-
+        backgroundColor: 'white'
     },
     signUpLinksView: {
         alignItems: 'center',
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     dontHaveAnAccount: {
         fontSize: 18,
         color: '#a3a3a3',
-        margin: 30
+        margin: 30,
     }
 });
 

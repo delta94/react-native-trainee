@@ -25,7 +25,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MainLayout from './components/MainLayout/MainLayout';
+import Navigation from './components/Navigation/Navigation';
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -39,7 +39,8 @@ const App = () => {
     <>
       <Provider store={store}>
 
-        <MainLayout />
+        <Navigation />
+        
         {/* <Status /> */}
 
         {/* <Login /> */}
