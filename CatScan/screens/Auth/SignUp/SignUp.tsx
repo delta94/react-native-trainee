@@ -278,6 +278,6 @@ const mapStateToProps = (state: AppState): StateFromProps => {
   };
 };
 
-export default connect<StateFromProps, DispatchFromProps, any, AppState>(null, {
+export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
   signUp
 })(SignUp);
