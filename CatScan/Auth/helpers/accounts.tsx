@@ -1,7 +1,7 @@
 
 import { CognitoUser, AuthenticationDetails, CognitoUserAttribute, ICognitoUserAttributeData } from 'amazon-cognito-identity-js';
 import Pool from '../configs/UserPool';
-import { _storeToken2, _retrieveToken, _removeToken } from './localStorage';
+import { _storeTokenAndExpired, _retrieveToken, _removeToken } from './localStorage';
 
 export const getSession = (): any => {
     return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ export const authenticate = (Username: any, Password: any): any => {
             onSuccess: data => {
                 console.log('onSuccess', data);
 
-                _storeToken2(data.getAccessToken().getJwtToken(), data.getAccessToken().getExpiration().toString()); //we need to alhorithm to check stored token 
+                _storeTokenAndExpired(data.getAccessToken().getJwtToken(), data.getIdToken().getExpiration().toString()); //we need to alhorithm to check stored token 
                 
                 resolve(data);
             },

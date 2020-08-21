@@ -87,7 +87,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                             <Input
                                 placeholder="Enter Email"
                                 onChangeText={text => this.setState({ email: text })}
-                                defaultValue="auth@au.com"
+                                //defaultValue="auth@au.com"
                                 containerStyle={styles.textInput}
                                 leftIcon={<Text></Text>}
                                 inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
@@ -96,7 +96,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                             <Input
                                 placeholder='Enter Password'
                                 onChangeText={text => this.setState({ password: text })}
-                                defaultValue="1qaz@WSX"
+                                //defaultValue="1qaz@WSX"
                                 containerStyle={[styles.textInput, styles.passwordInput]}
                                 leftIcon={<Text></Text>}
                                 rightIcon={<Text onPress={this.navigateToForgotPasswprd}>Forgot?</Text>}

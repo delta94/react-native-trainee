@@ -11,9 +11,9 @@ export const _storeToken = async (token: any) => {
         console.log('Error when store token : ', error);
     }
 };
-export const _storeToken2 = async (token: string, expired : string) => {
+export const _storeTokenAndExpired = async (token: string, expired : string) => {
     try {
-        await AsyncStorage.multiSet([['accessToken', token], ['expired' , expired]]  )
+        await AsyncStorage.setItem('accessToken', token), () => AsyncStorage.setItem('expired', expired);
     } catch (error) {
         console.log('Error when store token : ', error);
     }
@@ -29,9 +29,7 @@ export const _checkExpired = async () => {
 
 export const _removeToken = async () => {
     try {
-        await AsyncStorage.removeItem(
-            'accessToken'
-        );
+        await AsyncStorage.multiRemove(['accessToken', 'expired']);
     } catch (error) {
         console.log('Error when remove token : ', error);
     }

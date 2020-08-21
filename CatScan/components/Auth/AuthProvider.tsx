@@ -44,8 +44,7 @@ import Pool from '../../Auth/configs/UserPool';
 import AuthNavigator from '../Navigation/AuthNavigator/AuthNavigator';
 
 interface OwnStateProps {
-    email: string;
-    password: string;
+   
 }
 
 
@@ -63,23 +62,17 @@ class AuthProvider extends React.Component<any & any & any, OwnStateProps> {
     constructor(props: any) {
         super(props);
 
-        this.state = {
-            email: '',
-            password: ''
-        }
     }
 
     render() {
-        
-        const isAuthenticated = _retrieveToken();
-        const ex = _checkExpired();
-        console.log('expired',ex);
+
+        const isAuthenticated = this.props.isAuthorized;
+
         const auth = (<NavigationContainer><AuthNavigator /></NavigationContainer>);
 
-        return !isAuthenticated ? auth : this.props.children;
+        return isAuthenticated ? this.props.children : auth;
     }
 };
-
 
 const styles = StyleSheet.create({
     logoutContainer: {
@@ -93,7 +86,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
         userData: state.auth.userData,
-        isAuthorized : state.auth.isAuthorized
+        isAuthorized: state.auth.isAuthorized
     };
 };
 
