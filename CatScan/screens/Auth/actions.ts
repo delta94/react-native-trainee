@@ -104,7 +104,6 @@ export const signUp = (
         dispatch(signUpRequest());
         registrate(email, password, phoneNumber, firstName, lastName, companyName, zipCode)
             .then((data: any) => {
-                console.log(email, password, 'run auth!');
                 dispatch(signUpSuccess())
                 dispatch(authenticate(email, password));
             })
