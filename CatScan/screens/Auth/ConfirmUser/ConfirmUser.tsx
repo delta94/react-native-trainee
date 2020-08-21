@@ -22,8 +22,7 @@ import { Input, Header } from 'react-native-elements';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 
 interface OwnStateProps {
-    email: string;
-    password: string;
+    code?: string;
 }
 
 
@@ -34,20 +33,19 @@ interface DispatchFromProps {
 interface StateFromProps {
 
 }
-class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
-    static title: string = "Forgot Password?";
+class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
+    static title: string = "Please confirm your account";
     constructor(props: any) {
         super(props);
 
         this.state = {
-            email: '',
-            password: ''
+
         }
     }
 
     onSubmit = (event: any) => {
         event.preventDefault();
-        this.props.authenticate(this.state.email, this.state.password);
+        //this.props.confirmUser(this.state.code);
 
     }
 
@@ -55,7 +53,7 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
         return (
             <>
                 <ScrollView>
-                    <View style={styles.forgotPasswordLayout}>
+                    <View style={styles.mainLayout}>
 
                         <View style={styles.logoImageView}>
                             <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
@@ -70,7 +68,7 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                                 onPress={() => this.props.navigation.goBack()}
                                 style={styles.goBackIcon}
                             />
-                            <Text style={styles.headerText}>{ForgotPassword.title}</Text>
+                            <Text style={styles.headerText}>{ConfirmUser.title}</Text>
 
                         </View>
 
@@ -78,13 +76,12 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                             <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
                         </View>
 
-                        <View style={styles.forgotContainer}>
+                        <View style={styles.confirmContainer}>
 
 
                             <Input
-                                placeholder="Email"
-                                onChangeText={text => this.setState({ email: text })}
-                                defaultValue="auth@au.com"
+                                placeholder="Enter your verification code"
+                                onChangeText={text => this.setState({ code: text })}
                                 containerStyle={styles.textInput}
                                 leftIcon={<Text></Text>}
                                 inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
@@ -92,7 +89,7 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                             />
 
                             <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
-                                <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
+                                <Text style={{ fontWeight: 'bold' }}>Confirm account</Text>
                             </Button>
 
                         </View>
@@ -120,15 +117,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 20
     },
-    signInButton: {
-        height: 60,
-        color: 'black',
-        backgroundColor: '#ebebeb'
-    },
-    inputLabel: {
-        fontSize: 20
-    },
-    forgotContainer: {
+    confirmContainer: {
         marginTop: 15,
         margin: 15,
         marginBottom: 30
@@ -147,7 +136,7 @@ const styles = StyleSheet.create({
     logoImageView: {
 
     },
-    forgotPasswordLayout: {
+    mainLayout: {
         backgroundColor: 'white'
     },
     signUpLinksView: {
@@ -199,4 +188,4 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
 
-})(ForgotPassword);
+})(ConfirmUser);

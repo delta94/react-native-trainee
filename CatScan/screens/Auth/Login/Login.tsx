@@ -65,9 +65,8 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
     componentDidUpdate(prevProps: StateFromProps, prevState: any) {
 
         if (!prevProps.userNotConfirmed && this.props.userNotConfirmed) {
-            this.props.navigation.navigate('ForgotPassword');
+            this.props.navigation.navigate('ConfirmUser');
         }
-
     }
 
     render() {

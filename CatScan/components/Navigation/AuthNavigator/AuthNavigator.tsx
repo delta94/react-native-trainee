@@ -22,6 +22,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ConfirmUser from '../../../screens/Auth/ConfirmUser/ConfirmUser';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +36,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="ConfirmUser" component={ForgotPassword} />
+      <Stack.Screen name="ConfirmUser" component={ConfirmUser} />
 
     </Stack.Navigator>
   );
