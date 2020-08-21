@@ -17,6 +17,7 @@ import { Input } from 'react-native-elements';
 import { signUp } from '../actions';
 import { connect } from 'react-redux';
 import { AppState } from '../../../reducers';
+import { UserData } from 'amazon-cognito-identity-js';
 
 interface OwnStateProps {
   email: string;
@@ -42,7 +43,8 @@ interface DispatchFromProps {
   ) => void
 }
 interface StateFromProps {
-
+  userData?: UserData;
+  signUpSuccess?: boolean;
 }
 
 
@@ -64,7 +66,9 @@ class SignUp extends React.Component<any & StateFromProps & DispatchFromProps, O
       repeatPassword: '',
     }
   }
-
+  navigateToLogin = () => {
+    this.props.navigation.navigate('Login');
+  }
   onSubmit = (event: any) => {
     event.preventDefault();
 
@@ -78,6 +82,11 @@ class SignUp extends React.Component<any & StateFromProps & DispatchFromProps, O
 
   }
 
+  componentDidUpdate(prevProps: StateFromProps, prevState: OwnStateProps) {
+    if (!prevProps.signUpSuccess && this.props.signUpSuccess) {
+      this.navigateToLogin();
+    }
+  }
   render() {
     return (
       <>
@@ -262,8 +271,13 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = (state: AppState): StateFromProps => {
+  return {
+    userData: state.auth.userData,
+    signUpSuccess: state.auth.signUpSuccess
+  };
+};
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(null, {
   signUp
 })(SignUp);
-

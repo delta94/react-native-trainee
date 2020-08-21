@@ -7,6 +7,7 @@ export enum AUTHENTICATE {
     SUCCESS = 'AUTHENTICATE_SUCCESS',
 }
 
+
 export const authenticateRequest = () => {
     return {
         type: AUTHENTICATE.REQUEST
@@ -69,6 +70,27 @@ export const authenticate = (email: string, password: string) => {
     };
 };
 
+
+//Sign Up
+
+export enum SIGN_UP {
+    REQUEST = 'SIGN_UP_REQUEST',
+    SUCCESS = 'SIGN_UP_SUCCESS',
+}
+export const signUpRequest = () => {
+    return {
+        type: SIGN_UP.REQUEST
+    };
+};
+
+export const signUpSuccess = () => {
+
+    return {
+        type: SIGN_UP.SUCCESS
+    };
+};
+
+
 export const signUp = (
     email: string,
     password: string,
@@ -79,10 +101,11 @@ export const signUp = (
     zipCode: string
 ) => {
     return (dispatch: any) => {
-
+        dispatch(signUpRequest());
         registrate(email, password, phoneNumber, firstName, lastName, companyName, zipCode)
             .then((data: any) => {
                 console.log(email, password, 'run auth!');
+                dispatch(signUpSuccess())
                 dispatch(authenticate(email, password));
             })
             .catch((error: any) => {
