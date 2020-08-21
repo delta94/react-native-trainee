@@ -35,7 +35,7 @@ export const authenticate = (Username: any, Password: any): any => {
                 console.log('onSuccess', data);
 
                 _storeTokenAndExpired(data.getAccessToken().getJwtToken(), data.getIdToken().getExpiration().toString()); //we need to alhorithm to check stored token 
-                
+
                 resolve(data);
             },
 
@@ -49,7 +49,7 @@ export const authenticate = (Username: any, Password: any): any => {
                 return data;
             }
         })
-        
+
     })
 }
 
@@ -74,7 +74,7 @@ export const signUp = (
     let attributeList: CognitoUserAttribute[] = [];
 
     const dataPhoneNumber: ICognitoUserAttributeData = {
-        Name: 'custom:phoneNumber',
+        Name: 'custom:custom:phoneNumber',
         Value: phoneNumber
     };
     const dataFirstName: ICognitoUserAttributeData = {
@@ -93,38 +93,35 @@ export const signUp = (
         Name: 'custom:zipCode',
         Value: zipCode
     };
+    const dataEmail: ICognitoUserAttributeData = {
+        Name: 'email',
+        Value: email
+    };
 
     const attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
     const attributeFirstName = new CognitoUserAttribute(dataFirstName);
     const attributeLastName = new CognitoUserAttribute(dataLastName);
     const attributeCompanyName = new CognitoUserAttribute(dataCompanyName);
     const attributeZipCode = new CognitoUserAttribute(dataZipCode);
+    const attributeEmail = new CognitoUserAttribute(dataEmail);
 
     attributeList.push(attributePhoneNumber);
     attributeList.push(attributeFirstName);
     attributeList.push(attributeLastName);
     attributeList.push(attributeCompanyName);
     attributeList.push(attributeZipCode);
+    attributeList.push(attributeEmail);
 
     return new Promise((resolve, reject) => {
-        //attributes is not working
 
-        Pool.signUp(email, password, [], [], (err, data) => {
-            if (err) reject(err), console.log(err);
-            resolve(data); console.log('success', data);
+        Pool.signUp(email, password, attributeList, [], (err, data) => {
+            if (err) {
+                reject(err), console.log(err);
+            } else {
+                resolve(data), console.log(data)
+            }
+
         });
-
-
-        //way to using custom attributes
-
-        // let user = Pool.getCurrentUser();
-        // console.log(user);
-        // if (user) {
-        //     user.updateAttributes(attributeList, (err: any, result: any) => {
-        //         if (err) console.log(err);
-        //         console.log('updateAttributesSuccess', result);
-        //     })
-        // }
 
     })
 }

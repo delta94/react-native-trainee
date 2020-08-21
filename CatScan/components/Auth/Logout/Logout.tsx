@@ -22,8 +22,7 @@ import { Input } from 'react-native-elements';
 
 
 interface OwnStateProps {
-    email: string;
-    password: string;
+    
 }
 
 
@@ -40,14 +39,13 @@ class Logout extends React.Component<any & any & any, OwnStateProps> {
         super(props);
 
         this.state = {
-            email: '',
-            password: ''
+         
         }
     }
 
     onLogout = (event: any) => {
         event.preventDefault();
-        //clear
+        //do logout
 
     }
     navigateToSignUp = () => {
