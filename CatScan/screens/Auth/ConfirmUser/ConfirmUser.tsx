@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { authenticate } from '../actions';
+import React from 'react';
+import { confirmUser } from '../actions';
 import { connect } from 'react-redux';
 import {
     SafeAreaView,
@@ -14,6 +14,7 @@ import {
 
 } from 'react-native';
 
+import { resendConfirmationCode } from "../../../Auth/helpers/accounts";
 import { AppState } from '../../../reducers';
 
 import { Button, InputItem } from '@ant-design/react-native';
@@ -27,7 +28,7 @@ interface OwnStateProps {
 
 
 interface DispatchFromProps {
-
+    confirmUser: (code: string, userName: string) => void;
 }
 
 interface StateFromProps {
@@ -45,8 +46,13 @@ class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
 
     onSubmit = (event: any) => {
         event.preventDefault();
-        //this.props.confirmUser(this.state.code);
 
+
+        this.props.confirmUser(this.state.code, 'vasylenko.w@gmail.com');
+
+    }
+    resendCode = () => {
+        resendConfirmationCode('vasylenko.w@gmail.com');
     }
 
     render() {
@@ -73,14 +79,14 @@ class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
                         </View>
 
                         <View style={styles.pageDescriptionView}>
-                            <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
+                            <Text style={styles.pageDescription}>Please check your email and find confirmation code.</Text>
                         </View>
 
                         <View style={styles.confirmContainer}>
 
 
                             <Input
-                                placeholder="Enter your verification code"
+                                placeholder="Enter your confirmation code"
                                 onChangeText={text => this.setState({ code: text })}
                                 containerStyle={styles.textInput}
                                 leftIcon={<Text></Text>}
@@ -88,7 +94,10 @@ class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
 
                             />
 
-                            <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
+                            <Button onPress={this.resendCode} style={styles.resendCode}>
+                                <Text style={{ fontWeight: 'bold' }}>Resend code</Text>
+                            </Button>
+                            <Button onPress={this.onSubmit} style={styles.confirmButton}>
                                 <Text style={{ fontWeight: 'bold' }}>Confirm account</Text>
                             </Button>
 
@@ -171,12 +180,19 @@ const styles = StyleSheet.create({
         margin: 20
 
     },
-    restorePasswordButton: {
+    confirmButton: {
         marginTop: 155,
         height: 60,
         color: 'black',
         backgroundColor: '#ebebeb',
 
+    },
+    resendCode: {
+        marginTop: 30,
+        height: 40,
+        width: '50%',
+        color: 'black',
+        backgroundColor: '#ebebeb',
     }
 });
 
@@ -187,5 +203,5 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-
+    confirmUser
 })(ConfirmUser);

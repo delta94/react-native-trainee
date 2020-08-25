@@ -1,6 +1,8 @@
 
-import { authenticate as login, signUp as registrate } from '../../Auth/helpers/accounts';
+import { authenticate as login, signUp as registrate, confirmUser as confirmUserAccount } from '../../Auth/helpers/accounts';
 import { getActionFailed } from '../../reducers';
+
+
 //authenticate
 export enum AUTHENTICATE {
     REQUEST = 'AUTHENTICATE_REQUEST',
@@ -29,10 +31,10 @@ export enum AUTHENTICATE_FAIL {
 
 }
 
-const authenticateFail = (dispatch: any, error: any) => {
+const authenticateFail = (dispatch: any, error: any, email : string) => {
 
     if (error.code === 'UserNotConfirmedException') {
-        dispatch(userNotconfirmed(error.message));
+        dispatch(userNotconfirmed(error.message, email));
     }
     else if (error.code === 'NotAuthorizedException') {
         dispatch(notAuthorized(error.message))
@@ -44,10 +46,11 @@ const authenticateFail = (dispatch: any, error: any) => {
 }
 
 
-export const userNotconfirmed = (validationMessage: string) => {
+export const userNotconfirmed = (validationMessage: string, userName : string) => {
     return {
         type: AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION,
-        validationMessage: validationMessage
+        validationMessage: validationMessage,
+        userName : userName
     };
 }
 export const notAuthorized = (validationMessage: string) => {
@@ -65,7 +68,7 @@ export const authenticate = (email: string, password: string) => {
                 dispatch(authenticateSuccess());
             })
             .catch((error: any) => {
-                authenticateFail(dispatch, error)
+                authenticateFail(dispatch, error, email)
             });
     };
 };
@@ -106,6 +109,39 @@ export const signUp = (
             .then((data: any) => {
                 dispatch(signUpSuccess())
                 dispatch(authenticate(email, password));
+            })
+            .catch((error: any) => {
+                dispatch(getActionFailed(error.message));
+            });
+    }
+}
+//Confirm User
+
+export enum CONFIRM_USER {
+    REQUEST = 'CONFIRM_USER_REQUEST',
+    SUCCESS = 'CONFIRM_USER_SUCCESS',
+}
+export const confirmUserRequest = () => {
+    return {
+        type: CONFIRM_USER.REQUEST
+    };
+};
+
+export const confirmUserSuccess = () => {
+
+    return {
+        type: CONFIRM_USER.SUCCESS
+    };
+};
+
+export const confirmUser = (code: string, userName : string) => {
+    return (dispatch: any) => {
+        dispatch(signUpRequest());
+
+        confirmUserAccount(code, userName)
+            .then((data: any) => {
+                dispatch(signUpSuccess())
+                dispatch(confirmUserSuccess());
             })
             .catch((error: any) => {
                 dispatch(getActionFailed(error.message));

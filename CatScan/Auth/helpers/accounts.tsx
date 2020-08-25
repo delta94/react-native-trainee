@@ -125,3 +125,28 @@ export const signUp = (
 
     })
 }
+
+export const confirmUser = (code: string, Username: string): any => {
+    return new Promise((resolve, reject) => {
+
+        const user = new CognitoUser({ Username, Pool });
+
+        user.confirmRegistration(code, false, (err, data) => {
+            if (err) {
+                reject(err), console.log(err);
+            } else {
+                resolve(data), console.log(data, 'yep')
+            }
+
+        });
+    });
+}
+
+export const resendConfirmationCode = (Username: string): any => {
+    return new Promise((resolve, reject) => {
+
+        const user = new CognitoUser({ Username, Pool });
+
+        user.resendConfirmationCode(()=> null);
+    });
+}

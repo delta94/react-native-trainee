@@ -1,12 +1,16 @@
 
-import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP } from './actions';
+import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP, CONFIRM_USER } from './actions';
 import updateObject from '../../helpers/updateObject';
 import { GET_ACTION_FAIL } from '../../reducers';
+
+export interface UserData {
+    userName: string
+}
 
 export interface AuthState {
     isAuthorized: boolean;
     userNotConfirmed: boolean;
-    userData: any;
+    userData?: UserData;
     errorMessage?: string
     isError?: boolean;
     validationMessage?: string;
@@ -15,8 +19,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
     isAuthorized: false,
-    userNotConfirmed: false,
-    userData: undefined
+    userNotConfirmed: false
 }
 
 export const reducer = (state = initialState, action: any) => {
@@ -28,13 +31,17 @@ export const reducer = (state = initialState, action: any) => {
         case AUTHENTICATE.SUCCESS:
             return updateObject(state, { isAuthorized: true });
         case AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION:
-            return updateObject(state, { userNotConfirmed: true, validationMessage: action.validationMessage });
+            return updateObject(state, { userNotConfirmed: true, validationMessage: action.validationMessage, userData: { userName: action.userName } });
         case AUTHENTICATE_FAIL.NOT_AUTHORIZED_EXCEPTION:
             return updateObject(state, { validationMessage: action.validationMessage });
         case SIGN_UP.REQUEST:
             return updateObject(state, { signUpSuccess: false });
         case SIGN_UP.SUCCESS:
             return updateObject(state, { signUpSuccess: true });
+        case CONFIRM_USER.REQUEST:
+            return updateObject(state, { userNotConfirmed: true });
+        case CONFIRM_USER.SUCCESS:
+            return updateObject(state, { userNotConfirmed: false });
 
         default:
             return state;
