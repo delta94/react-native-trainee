@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-catscan-dev-132456-authRole",
+            "UnauthRoleArn": "arn:aws:iam::417985074728:role/amplify-catscan-dev-132456-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::417985074728:role/amplify-catscan-dev-132456-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-catscan-dev-132456-deployment",
+            "UnauthRoleName": "amplify-catscan-dev-132456-unauthRole",
+            "StackName": "amplify-catscan-dev-132456",
+            "StackId": "arn:aws:cloudformation:us-east-2:417985074728:stack/amplify-catscan-dev-132456/3b9c7c20-e6bd-11ea-884e-02319babb9b4",
+            "AmplifyAppId": "djvs1temy261r"
+        },
+        "categories": {
+            "auth": {
+                "catscandcc9fca1": {}
+            }
+        }
+    }
+}
