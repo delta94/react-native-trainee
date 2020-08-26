@@ -1,5 +1,5 @@
 
-import { authenticate, signUp as registrate } from '../../Auth/helpers/accounts';
+import { authenticate,  resendConfirmationCode as resendConfirmCode } from '../../Auth/helpers/accounts';
 import { getActionFailed } from '../../reducers';
 import { Auth } from 'aws-amplify';
 
@@ -10,17 +10,18 @@ export enum AUTHENTICATE {
 }
 
 
-export const authenticateRequest = () => {
+export const authenticateRequest = (userName : string) => {
     return {
-        type: AUTHENTICATE.REQUEST
+        type: AUTHENTICATE.REQUEST,
+        userName : userName
     };
 };
 
-export const authenticateSuccess = (data: any) => {
+export const authenticateSuccess = (userName: string) => {
 
     return {
         type: AUTHENTICATE.SUCCESS,
-        userData: data
+        userName: userName
     };
 };
 
@@ -64,11 +65,11 @@ export const notAuthorized = (validationMessage: string) => {
 export const login = (email: string, password: string) => {
     return (dispatch: any) => {
 
-        //dispatch(authenticateRequest());
+        dispatch(authenticateRequest(email));
         Auth.signIn(email, password)
             .then(data => {
                 console.log('successful sign in!', data);
-                dispatch(authenticateSuccess(data));
+                dispatch(authenticateSuccess(email));
             })
             .catch(error => {
                 console.log('error signing in!: ', error)
@@ -84,16 +85,19 @@ export enum SIGN_UP {
     REQUEST = 'SIGN_UP_REQUEST',
     SUCCESS = 'SIGN_UP_SUCCESS',
 }
-export const signUpRequest = () => {
+export const signUpRequest = (userName : string) => {
     return {
-        type: SIGN_UP.REQUEST
+        type: SIGN_UP.REQUEST,
+        userName : userName
     };
 };
 
-export const signUpSuccess = () => {
+export const signUpSuccess = (userName: string, password: string) => {
 
     return {
-        type: SIGN_UP.SUCCESS
+        type: SIGN_UP.SUCCESS,
+        userName: userName,
+        password: password
     };
 };
 
@@ -108,7 +112,7 @@ export const signUp = (
     zipCode: string
 ) => {
     return (dispatch: any) => {
-        dispatch(signUpRequest());
+        dispatch(signUpRequest(email));
 
         Auth.signUp({
             username: email,
@@ -123,14 +127,15 @@ export const signUp = (
             },
         })
             .then((data: any) => {
-                dispatch(signUpSuccess())
-                dispatch(authenticate(email, password));
+                dispatch(signUpSuccess(email, password))
             })
             .catch((error: any) => {
                 dispatch(getActionFailed(error.message));
             });
     }
 }
+
+
 //Confirm User
 
 export enum CONFIRM_USER {
@@ -153,15 +158,17 @@ export const confirmUserSuccess = () => {
 export const confirmUser = (code: string, userName: string) => {
 
     return (dispatch: any) => {
-        dispatch(signUpRequest());
+        dispatch(confirmUserRequest());
 
         Auth.confirmSignUp(userName, code)
             .then((data: any) => {
-                dispatch(signUpSuccess())
                 dispatch(confirmUserSuccess());
+                console.log(data)
             })
             .catch((error: any) => {
                 dispatch(getActionFailed(error.message));
+                console.log(error)
+
             });
     }
 }
@@ -196,9 +203,10 @@ export const checkAuthorization = () => {
             .catch((error: any) => {
                 dispatch(getActionFailed(error.message));
             });
-
     }
 }
+
+
 //logout
 
 export enum LOGOUT {
@@ -224,14 +232,99 @@ export const logout = () => {
         Auth.signOut()
             .then(data => {
                 dispatch(logoutSuccess());
-                console.log('LOGOUT SUCCESS');
             })
             .catch(error => {
                 dispatch(getActionFailed(error.message));
-
-                console.log('LOGOUT Failed');
             });
 
+    }
+}
+
+
+//resendConfirmationCode
+
+export const resendConfirmationCode = (userName: string) => {
+    return (dispatch: any) => {
+
+        dispatch(logoutRequest());
+        resendConfirmCode(userName)
+            .then((data: any) => {
+                dispatch(logoutSuccess());
+            })
+            .catch((error: any) => {
+                dispatch(getActionFailed(error.message));
+            });
+
+    }
+}
+
+
+//Forgot Password
+
+export enum FORGOT_PASSWORD {
+    REQUEST = 'FORGOT_PASSWORD_REQUEST',
+    SUCCESS = 'FORGOT_PASSWORD_SUCCESS',
+}
+export const forgotPasswordRequest = (userName: string) => {
+    return {
+        type: FORGOT_PASSWORD.REQUEST,
+        userName: userName
+    };
+};
+
+export const forgotPasswordSuccess = () => {
+
+    return {
+        type: FORGOT_PASSWORD.SUCCESS
+    };
+};
+
+export const forgotPassword = (userName: string) => {
+
+    return (dispatch: any) => {
+        dispatch(forgotPasswordRequest(userName));
+
+        Auth.forgotPassword(userName)
+            .then((data: any) => {
+                dispatch(forgotPasswordSuccess());
+            })
+            .catch((error: any) => {
+                dispatch(getActionFailed(error.message));
+            });
+    }
+}
+//Forgot password submit
+
+export enum FORGOT_PASSWORD_SUBMIT {
+    REQUEST = 'FORGOT_PASSWORD_SUBMIT_REQUEST',
+    SUCCESS = 'FORGOT_PASSWORD__SUBMITSUCCESS',
+}
+export const forgotPasswordSubmitRequest = (userName: string) => {
+    return {
+        type: FORGOT_PASSWORD_SUBMIT.REQUEST,
+        userName: userName
+    };
+};
+
+export const forgotPasswordSubmitSuccess = () => {
+
+    return {
+        type: FORGOT_PASSWORD_SUBMIT.SUCCESS
+    };
+};
+
+export const forgotPasswordSubmit = (email: string, confirmationCode: string, newPassword: string) => {
+
+    return (dispatch: any) => {
+        dispatch(forgotPasswordSubmitRequest(email));
+
+        Auth.forgotPasswordSubmit(email, confirmationCode, newPassword)
+            .then((data: any) => {
+                dispatch(forgotPasswordSubmitSuccess());
+            })
+            .catch((error: any) => {
+                dispatch(getActionFailed(error.message));
+            });
     }
 }
 

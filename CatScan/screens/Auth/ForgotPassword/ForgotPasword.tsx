@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { authenticate } from '../actions';
+import { forgotPassword, forgotPasswordSubmit } from '../actions';
 import { connect } from 'react-redux';
 import {
     SafeAreaView,
@@ -22,35 +22,48 @@ import { Input, Header } from 'react-native-elements';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 
 interface OwnStateProps {
-    email: string;
-    password: string;
+    email?: string;
+    confirmationCode?: string;
+    newPassword?: string;
+    repeatPassword?: string;
 }
 
-
 interface DispatchFromProps {
-
+    forgotPassword: (email: string) => void;
+    forgotPasswordSubmit: (email: string, confirmationCode: string, newPassword: string) => void;
 }
 
 interface StateFromProps {
-
+    validationMessage?: string;
+    isForgotPasswordActive?: boolean;
+    isPasswordChanged?: boolean;
+    userName?: string;
 }
-class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
+class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps & any, OwnStateProps> {
     static title: string = "Forgot Password?";
-    constructor(props: any) {
+    constructor(props: DispatchFromProps & StateFromProps & any) {
         super(props);
 
         this.state = {
-            email: '',
-            password: ''
         }
     }
 
     onSubmit = (event: any) => {
-        event.preventDefault();
-        this.props.authenticate(this.state.email, this.state.password);
+        this.props.forgotPassword(this.state.email);
 
     }
 
+    onConfirmRestorePassword = () => {
+        this.props.forgotPasswordSubmit(this.props.userName, this.state.confirmationCode, this.state.newPassword);
+    }
+
+    componentDidUpdate(prevProps : StateFromProps) {
+
+        if (this.props.isPasswordChanged && !prevProps.isPasswordChanged) {
+            this.props.navigation.navigate('Login');
+        }
+
+    }
     render() {
         return (
             <>
@@ -60,6 +73,8 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                         <View style={styles.logoImageView}>
                             <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
                         </View>
+
+                        <Text style={{ color: 'red' }}>{this.props.validationMessage}</Text>
 
                         <View style={styles.header}>
 
@@ -81,19 +96,58 @@ class ForgotPassword extends React.Component<any & any & any, OwnStateProps> {
                         <View style={styles.forgotContainer}>
 
 
-                            <Input
-                                placeholder="Email"
-                                onChangeText={text => this.setState({ email: text })}
-                                defaultValue="auth@au.com"
-                                containerStyle={styles.textInput}
-                                leftIcon={<Text></Text>}
-                                inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
 
-                            />
+                            {!this.props.isForgotPasswordActive ?
+                                <>
+                                    <Input
+                                        placeholder="Enter Email"
+                                        onChangeText={text => this.setState({ email: text })}
+                                        containerStyle={styles.textInput}
+                                        leftIcon={<Text></Text>}
+                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
 
-                            <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
-                                <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
-                            </Button>
+                                    />
+
+                                    <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
+                                        <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
+                                    </Button>
+                                </>
+                                :
+                                <>
+                                    <Text style={{ fontWeight: 'bold' }}>{`Changing password for: ${this.props.userName}`}</Text>
+                                    <Input
+                                        placeholder="Enter Confirmation Code"
+                                        onChangeText={text => this.setState({ confirmationCode: text })}
+                                        containerStyle={styles.textInput}
+                                        leftIcon={<Text></Text>}
+                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                    />
+                                    <Input
+                                        placeholder="Enter New Password"
+                                        onChangeText={text => this.setState({ newPassword: text })}
+                                        containerStyle={styles.textInput}
+                                        leftIcon={<Text></Text>}
+                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                    />
+                                    <Input
+                                        placeholder="Repeat New Password"
+                                        onChangeText={text => this.setState({ repeatPassword: text })}
+                                        containerStyle={styles.textInput}
+                                        leftIcon={<Text></Text>}
+                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                    />
+
+                                    <Button onPress={this.onConfirmRestorePassword} style={styles.confirmRestorePasswordButton}>
+                                        <Text style={{ fontWeight: 'bold' }}>Confirm restore password</Text>
+                                    </Button>
+                                </>}
+
+
+
+
 
                         </View>
 
@@ -114,6 +168,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7f7f7',
         fontSize: 17,
         borderRadius: 10,
+        margin: 5
 
     },
     passwordInput: {
@@ -188,15 +243,26 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: '#ebebeb',
 
+    },
+    confirmRestorePasswordButton: {
+        marginTop: 15,
+        height: 60,
+        color: 'black',
+        backgroundColor: '#ebebeb',
+
     }
 });
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
-        userData: state.auth.userData
+        validationMessage: state.auth.validationMessage,
+        isForgotPasswordActive: state.auth.isForgotPasswordActive,
+        isPasswordChanged: state.auth.isPasswordChanged,
+        userName: state.auth.userName
     };
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-
+    forgotPassword,
+    forgotPasswordSubmit
 })(ForgotPassword);

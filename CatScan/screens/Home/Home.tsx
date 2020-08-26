@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
-        userData: state.auth.userData
     };
 };
 

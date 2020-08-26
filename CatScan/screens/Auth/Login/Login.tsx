@@ -25,7 +25,8 @@ import { NavigationProp } from '@react-navigation/native'
 interface OwnStateProps {
     email: string;
     password: string;
-  
+    validationMessage?: string;
+
 }
 
 
@@ -34,7 +35,6 @@ interface DispatchFromProps {
 }
 
 interface StateFromProps {
-    userData: any;
     validationMessage?: string;
     userNotConfirmed?: boolean;
 }
@@ -64,7 +64,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
 
     componentDidUpdate(prevProps: StateFromProps, prevState: any) {
 
-        if (this.props.userNotConfirmed) {
+        if (!prevProps.userNotConfirmed && this.props.userNotConfirmed ) {
             this.props.navigation.navigate('ConfirmUser');
         }
     }
@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
-        userData: state.auth.userData,
         validationMessage: state.auth.validationMessage,
         userNotConfirmed: state.auth.userNotConfirmed
     };

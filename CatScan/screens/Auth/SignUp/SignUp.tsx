@@ -41,7 +41,6 @@ interface DispatchFromProps {
   ) => void
 }
 interface StateFromProps {
-  userData?: any;
   signUpSuccess?: boolean;
 }
 
@@ -81,7 +80,7 @@ class SignUp extends React.Component<any & StateFromProps & DispatchFromProps, O
   }
 
   componentDidUpdate(prevProps: StateFromProps, prevState: OwnStateProps) {
-    if (!prevProps.signUpSuccess && this.props.signUpSuccess) {
+    if (this.props.signUpSuccess && !prevProps.signUpSuccess) {
       this.navigateToLogin();
     }
   }
@@ -271,7 +270,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: AppState): StateFromProps => {
   return {
-    userData: state.auth.userData,
     signUpSuccess: state.auth.signUpSuccess
   };
 };

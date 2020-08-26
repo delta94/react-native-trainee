@@ -1,5 +1,5 @@
 import React from 'react';
-import { confirmUser } from '../actions';
+import { confirmUser, resendConfirmationCode } from '../actions';
 import { connect } from 'react-redux';
 import {
     SafeAreaView,
@@ -14,7 +14,6 @@ import {
 
 } from 'react-native';
 
-import { resendConfirmationCode } from '../../../Auth/helpers/accounts';
 import { AppState } from '../../../reducers';
 
 import { Button, InputItem } from '@ant-design/react-native';
@@ -29,12 +28,13 @@ interface OwnStateProps {
 
 interface DispatchFromProps {
     confirmUser: (code: string, userName: string) => void;
+    resendConfirmationCode: (userName: string) => void;
 }
 
 interface StateFromProps {
-
+    userName?: string;
 }
-class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
+class ConfirmUser extends React.Component<any & StateFromProps, OwnStateProps> {
     static title: string = "Please confirm your account";
     constructor(props: any) {
         super(props);
@@ -47,14 +47,16 @@ class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
     onSubmit = (event: any) => {
         event.preventDefault();
 
-console.log('11')
-        this.props.confirmUser(this.state.code, 'vasylenko.w@gmail.com');
+        this.props.confirmUser(this.state.code, this.props.userName);
 
     }
     resendCode = () => {
-        resendConfirmationCode('vasylenko.w@gmail.com');
+        this.props.resendConfirmationCode(this.props.userName);
     }
 
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
     render() {
         return (
             <>
@@ -71,15 +73,17 @@ console.log('11')
                                 name="arrow-back"
                                 color="black"
                                 size={25}
-                                onPress={() => this.props.navigation.goBack()}
+                                onPress={() => this.goBack()}
                                 style={styles.goBackIcon}
                             />
                             <Text style={styles.headerText}>{ConfirmUser.title}</Text>
 
                         </View>
-
                         <View style={styles.pageDescriptionView}>
-                            <Text style={styles.pageDescription}>Please check your email and find confirmation code.</Text>
+                            <Text style={styles.pageDescription}>
+                                Please check your email and find confirmation code for user    
+                                <Text style={{ fontWeight: 'bold' }}>{`  ${this.props.userName}`}</Text>
+                            </Text>
                         </View>
 
                         <View style={styles.confirmContainer}>
@@ -198,10 +202,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
-        userData: state.auth.userData
+        userName: state.auth.userName
     };
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-    confirmUser
+    confirmUser,
+    resendConfirmationCode
 })(ConfirmUser);
