@@ -6,7 +6,8 @@ import {
   View,
   Text,
   StatusBar,
-  TextInput
+  TextInput,
+  Platform
 
 } from 'react-native';
 import { Header } from 'react-native-elements';
@@ -234,8 +235,7 @@ const styles = StyleSheet.create({
     width: '92%',
     color: 'black',
     //backgroundColor: '#ebebeb',
-    //marginTop: 50 //ios
-    marginTop: 20 //android
+    marginTop: Platform.OS === 'ios' ? 30 : 20
   },
   signUpButtonView: {
     flexDirection: 'column',
@@ -250,8 +250,7 @@ const styles = StyleSheet.create({
     //backgroundColor: '#f2f2f2',
     flexDirection: 'row',
     marginLeft: 15,
-    // marginTop: 60 //ios
-    marginTop: 30 //android
+    marginTop: Platform.OS === 'ios' ? 60 : 30
   },
   goBackIcon: {
 
@@ -263,8 +262,8 @@ const styles = StyleSheet.create({
   },
   signUpContainer: {
     backgroundColor: 'white',
-    //marginTop : 20, //ios
-    height: '100%'
+    height: '100%',
+    marginTop: Platform.OS === 'ios' ? 20 : 0 //ios
   }
 });
 

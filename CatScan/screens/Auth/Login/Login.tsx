@@ -10,7 +10,8 @@ import {
     StatusBar,
     TextInput,
     Alert,
-    Image
+    Image,
+    Platform
 
 } from 'react-native';
 
@@ -161,8 +162,7 @@ const styles = StyleSheet.create({
     loginImage: {
         width: 420,
         height: 400,
-        //marginTop: 65 //ios
-        marginTop: 5 //android
+        marginTop : Platform.OS === 'ios' ? 65 : 5
 
     },
     loginImageView: {
