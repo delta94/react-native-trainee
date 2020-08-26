@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { Header } from 'react-native-elements';
 import { Button, InputItem } from '@ant-design/react-native';
-import UserPool from '../../../Auth/configs/UserPool';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import { Input } from 'react-native-elements';
 import { signUp } from '../actions';

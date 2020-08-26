@@ -29,7 +29,7 @@ export const reducer = (state = initialState, action: any) => {
         case AUTHENTICATE.REQUEST:
             return updateObject(state, { isAuthorized: false });
         case AUTHENTICATE.SUCCESS:
-            return updateObject(state, { isAuthorized: true });
+            return updateObject(state, { isAuthorized: true, userData : action.userData, validationMessage : undefined  });
         case AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION:
             return updateObject(state, { userNotConfirmed: true, validationMessage: action.validationMessage, userData: { userName: action.userName } });
         case AUTHENTICATE_FAIL.NOT_AUTHORIZED_EXCEPTION:
@@ -41,7 +41,7 @@ export const reducer = (state = initialState, action: any) => {
         case CONFIRM_USER.REQUEST:
             return updateObject(state, { userNotConfirmed: true });
         case CONFIRM_USER.SUCCESS:
-            return updateObject(state, { userNotConfirmed: false });
+            return updateObject(state, { userNotConfirmed: false, isAuthorized : true, validationMessage : undefined });
         case CHECK_AUTH.REQUEST:
             return updateObject(state, { isAuthorized: false });
         case CHECK_AUTH.SUCCESS:

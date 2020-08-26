@@ -56,7 +56,7 @@ export const authenticate = (Username: any, Password: any): any => {
 
             console.log("auth succeess");
             Auth.userSession(user);
-            
+
             resolve(user);
         }
         catch (error) {
@@ -128,14 +128,26 @@ export const signUp = (
 
     return new Promise((resolve, reject) => {
 
-        Pool.signUp(email, password, attributeList, [], (err, data) => {
-            if (err) {
-                reject(err), console.log(err);
-            } else {
-                resolve(data), console.log(data)
-            }
-
-        });
+        Auth.signUp({
+            username: email,
+            password: password,
+            attributes: {
+                email: email,
+                'custom:custom:phoneNumber': phoneNumber,
+                'custom:firstName': firstName,
+                'custom:lastName': lastName,
+                'custom:companyName': companyName,
+                'custom:zipCode': zipCode,
+            },
+        })
+            .then(() => {
+                console.log('successful sign up!')
+                resolve();
+            })
+            .catch(err => {
+                console.log('error signing up!: ', err)
+                reject(err);
+            });
 
     })
 }

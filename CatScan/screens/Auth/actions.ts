@@ -1,5 +1,5 @@
 
-import { authenticate, signUp as registrate, confirmUser as confirmUserAccount } from '../../Auth/helpers/accounts';
+import { authenticate, signUp as registrate } from '../../Auth/helpers/accounts';
 import { getActionFailed } from '../../reducers';
 import { Auth } from 'aws-amplify';
 
@@ -16,10 +16,11 @@ export const authenticateRequest = () => {
     };
 };
 
-export const authenticateSuccess = () => {
+export const authenticateSuccess = (data: any) => {
 
     return {
-        type: AUTHENTICATE.SUCCESS
+        type: AUTHENTICATE.SUCCESS,
+        userData: data
     };
 };
 
@@ -67,7 +68,7 @@ export const login = (email: string, password: string) => {
         Auth.signIn(email, password)
             .then(data => {
                 console.log('successful sign in!', data);
-                dispatch(authenticateSuccess());
+                dispatch(authenticateSuccess(data));
             })
             .catch(error => {
                 console.log('error signing in!: ', error)
@@ -108,7 +109,19 @@ export const signUp = (
 ) => {
     return (dispatch: any) => {
         dispatch(signUpRequest());
-        registrate(email, password, phoneNumber, firstName, lastName, companyName, zipCode)
+
+        Auth.signUp({
+            username: email,
+            password: password,
+            attributes: {
+                email: email,
+                'custom:custom:phoneNumber': phoneNumber,
+                'custom:firstName': firstName,
+                'custom:lastName': lastName,
+                'custom:companyName': companyName,
+                'custom:zipCode': zipCode,
+            },
+        })
             .then((data: any) => {
                 dispatch(signUpSuccess())
                 dispatch(authenticate(email, password));
@@ -138,10 +151,11 @@ export const confirmUserSuccess = () => {
 };
 
 export const confirmUser = (code: string, userName: string) => {
+
     return (dispatch: any) => {
         dispatch(signUpRequest());
 
-        confirmUserAccount(code, userName)
+        Auth.confirmSignUp(userName, code)
             .then((data: any) => {
                 dispatch(signUpSuccess())
                 dispatch(confirmUserSuccess());

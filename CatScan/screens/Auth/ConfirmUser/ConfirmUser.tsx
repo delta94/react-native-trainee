@@ -14,7 +14,7 @@ import {
 
 } from 'react-native';
 
-import { resendConfirmationCode } from "../../../Auth/helpers/accounts";
+import { resendConfirmationCode } from '../../../Auth/helpers/accounts';
 import { AppState } from '../../../reducers';
 
 import { Button, InputItem } from '@ant-design/react-native';
@@ -47,7 +47,7 @@ class ConfirmUser extends React.Component<any & any & any, OwnStateProps> {
     onSubmit = (event: any) => {
         event.preventDefault();
 
-
+console.log('11')
         this.props.confirmUser(this.state.code, 'vasylenko.w@gmail.com');
 
     }
