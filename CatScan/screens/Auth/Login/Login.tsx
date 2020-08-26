@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { authenticate } from '../actions';
+import { login } from '../actions';
 import { connect } from 'react-redux';
 import {
     SafeAreaView,
@@ -30,7 +30,7 @@ interface OwnStateProps {
 
 
 interface DispatchFromProps {
-    authenticate: (email: string, password: string) => void
+    login: (email: string, password: string) => void
 }
 
 interface StateFromProps {
@@ -51,7 +51,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
 
     onSubmit = (event: any) => {
         event.preventDefault();
-        this.props.authenticate(this.state.email, this.state.password);
+        this.props.login(this.state.email, this.state.password);
 
     }
     navigateToSignUp = () => {
@@ -192,5 +192,5 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-    authenticate
+    login
 })(Login);

@@ -16,9 +16,8 @@ import {
 
 import { AppState } from '../../reducers';
 
-import { Button, InputItem } from '@ant-design/react-native';
-import { Input } from 'react-native-elements';
-
+import { Input, Button } from 'react-native-elements';
+import { logout } from '../Auth/actions';
 
 
 interface OwnStateProps {
@@ -28,7 +27,7 @@ interface OwnStateProps {
 
 
 interface DispatchFromProps {
-
+    logout: () => void;
 }
 
 interface StateFromProps {
@@ -45,18 +44,16 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
         }
     }
 
-    onLogout = (event: any) => {
-        event.preventDefault();
-        //clear
-
+    onLogout = () => {
+        this.props.logout();
     }
-   
+
     render() {
         return (
             <>
                 <View style={styles.mainContainer}>
                     <Text>Settings Screen</Text>
-                    <Button onPress={this.onLogout}>Logout</Button>
+                    <Button onPress={this.onLogout} title='Logout'></Button>
                 </View>
             </>
         );
@@ -65,7 +62,7 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        marginTop : 100
+        marginTop: 100
     },
 });
 
@@ -76,5 +73,5 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-
+    logout
 })(Home);

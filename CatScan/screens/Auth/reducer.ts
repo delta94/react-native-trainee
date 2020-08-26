@@ -1,5 +1,5 @@
 
-import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP, CONFIRM_USER } from './actions';
+import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP, CONFIRM_USER, CHECK_AUTH, LOGOUT } from './actions';
 import updateObject from '../../helpers/updateObject';
 import { GET_ACTION_FAIL } from '../../reducers';
 
@@ -42,6 +42,15 @@ export const reducer = (state = initialState, action: any) => {
             return updateObject(state, { userNotConfirmed: true });
         case CONFIRM_USER.SUCCESS:
             return updateObject(state, { userNotConfirmed: false });
+        case CHECK_AUTH.REQUEST:
+            return updateObject(state, { isAuthorized: false });
+        case CHECK_AUTH.SUCCESS:
+            return updateObject(state, { isAuthorized: true });
+        case LOGOUT.REQUEST:
+            return updateObject(state, { isAuthorized: true });
+        case LOGOUT.SUCCESS:
+            return updateObject(state, { isAuthorized: false, userData : undefined });
+
 
         default:
             return state;

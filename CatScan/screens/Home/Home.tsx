@@ -1,4 +1,5 @@
 import React from 'react';
+import { Auth } from 'aws-amplify';
 
 import { connect } from 'react-redux';
 import {
@@ -16,8 +17,8 @@ import {
 
 import { AppState } from '../../reducers';
 
-import { Button, InputItem } from '@ant-design/react-native';
-import { Input } from 'react-native-elements';
+import { InputItem } from '@ant-design/react-native';
+import { Input, Button } from 'react-native-elements';
 
 
 
@@ -44,6 +45,8 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
             password: ''
         }
     }
+
+    
 
     onLogout = (event: any) => {
         event.preventDefault();

@@ -1,7 +1,7 @@
 
-import { authenticate as login, signUp as registrate, confirmUser as confirmUserAccount } from '../../Auth/helpers/accounts';
+import { authenticate, signUp as registrate, confirmUser as confirmUserAccount } from '../../Auth/helpers/accounts';
 import { getActionFailed } from '../../reducers';
-
+import { Auth } from 'aws-amplify';
 
 //authenticate
 export enum AUTHENTICATE {
@@ -31,10 +31,10 @@ export enum AUTHENTICATE_FAIL {
 
 }
 
-const authenticateFail = (dispatch: any, error: any, email : string) => {
+const authenticateFail = (dispatch: any, error: any) => {
 
     if (error.code === 'UserNotConfirmedException') {
-        dispatch(userNotconfirmed(error.message, email));
+        dispatch(userNotconfirmed(error.message));
     }
     else if (error.code === 'NotAuthorizedException') {
         dispatch(notAuthorized(error.message))
@@ -46,11 +46,11 @@ const authenticateFail = (dispatch: any, error: any, email : string) => {
 }
 
 
-export const userNotconfirmed = (validationMessage: string, userName : string) => {
+export const userNotconfirmed = (validationMessage: string) => {
     return {
         type: AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION,
         validationMessage: validationMessage,
-        userName : userName
+        userName: ''
     };
 }
 export const notAuthorized = (validationMessage: string) => {
@@ -60,15 +60,18 @@ export const notAuthorized = (validationMessage: string) => {
     };
 }
 
-export const authenticate = (email: string, password: string) => {
+export const login = (email: string, password: string) => {
     return (dispatch: any) => {
-        dispatch(authenticateRequest());
-        login(email, password)
-            .then((data: any) => {
+
+        //dispatch(authenticateRequest());
+        Auth.signIn(email, password)
+            .then(data => {
+                console.log('successful sign in!', data);
                 dispatch(authenticateSuccess());
             })
-            .catch((error: any) => {
-                authenticateFail(dispatch, error, email)
+            .catch(error => {
+                console.log('error signing in!: ', error)
+                authenticateFail(dispatch, error)
             });
     };
 };
@@ -134,7 +137,7 @@ export const confirmUserSuccess = () => {
     };
 };
 
-export const confirmUser = (code: string, userName : string) => {
+export const confirmUser = (code: string, userName: string) => {
     return (dispatch: any) => {
         dispatch(signUpRequest());
 
@@ -146,6 +149,75 @@ export const confirmUser = (code: string, userName : string) => {
             .catch((error: any) => {
                 dispatch(getActionFailed(error.message));
             });
+    }
+}
+
+
+//check auth
+
+export enum CHECK_AUTH {
+    REQUEST = 'CHECK_AUTH_REQUEST',
+    SUCCESS = 'CHECK_AUTH_SUCCESS',
+}
+export const checkAuthorizationRequest = () => {
+    return {
+        type: CHECK_AUTH.REQUEST
+    };
+};
+
+export const checkAuthorizationSuccess = () => {
+    return {
+        type: CHECK_AUTH.SUCCESS
+    };
+};
+
+export const checkAuthorization = () => {
+    return (dispatch: any) => {
+        dispatch(checkAuthorizationRequest());
+
+        Auth.currentAuthenticatedUser()
+            .then((data: any) => {
+                dispatch(checkAuthorizationSuccess());
+            })
+            .catch((error: any) => {
+                dispatch(getActionFailed(error.message));
+            });
+
+    }
+}
+//logout
+
+export enum LOGOUT {
+    REQUEST = 'LOGOUT_REQUEST',
+    SUCCESS = 'LOGOUT_SUCCESS',
+}
+export const logoutRequest = () => {
+    return {
+        type: LOGOUT.REQUEST
+    };
+};
+
+export const logoutSuccess = () => {
+    return {
+        type: LOGOUT.SUCCESS
+    };
+};
+
+export const logout = () => {
+    return (dispatch: any) => {
+
+        dispatch(logoutRequest());
+        Auth.signOut()
+            .then(data => {
+                dispatch(logoutSuccess());
+                console.log('LOGOUT SUCCESS');
+            })
+            .catch(error => {
+                dispatch(getActionFailed(error.message));
+
+                console.log('LOGOUT Failed');
+            });
+
     }
 }
 

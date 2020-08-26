@@ -2,6 +2,7 @@
 import { CognitoUser, AuthenticationDetails, CognitoUserAttribute, ICognitoUserAttributeData } from 'amazon-cognito-identity-js';
 import Pool from '../configs/UserPool';
 import { _storeTokenAndExpired, _retrieveToken, _removeToken } from './localStorage';
+import { Auth } from 'aws-amplify';
 
 export const getSession = (): any => {
     return new Promise((resolve, reject) => {
@@ -27,28 +28,41 @@ export const getSession = (): any => {
 export const authenticate = (Username: any, Password: any): any => {
     return new Promise((resolve, reject) => {
 
-        const user = new CognitoUser({ Username, Pool });
-        const authDetails = new AuthenticationDetails({ Username, Password });
+        // const user = new CognitoUser({ Username, Pool });
+        // const authDetails = new AuthenticationDetails({ Username, Password });
 
-        user.authenticateUser(authDetails, {
-            onSuccess: data => {
-                console.log('onSuccess', data);
+        // user.authenticateUser(authDetails, {
+        //     onSuccess: data => {
+        //         console.log('onSuccess', data);
 
-                _storeTokenAndExpired(data.getAccessToken().getJwtToken(), data.getIdToken().getExpiration().toString()); //we need to alhorithm to check stored token 
+        //         _storeTokenAndExpired(data.getAccessToken().getJwtToken(), data.getIdToken().getExpiration().toString()); //we need to alhorithm to check stored token 
 
-                resolve(data);
-            },
+        //         resolve(data);
+        //     },
 
-            onFailure: err => {
-                console.error('onFailure', err);
-                reject(err);
-            },
+        //     onFailure: err => {
+        //         console.error('onFailure', err);
+        //         reject(err);
+        //     },
 
-            newPasswordRequired: data => {
-                console.log('newPasswordRequired', data)
-                return data;
-            }
-        })
+        //     newPasswordRequired: data => {
+        //         console.log('newPasswordRequired', data)
+        //         return data;
+        //     }
+        // })
+
+        try {
+            const user = Auth.signIn(Username, Password);
+
+            console.log("auth succeess");
+            Auth.userSession(user);
+            
+            resolve(user);
+        }
+        catch (error) {
+            console.log('error signing in', error);
+        }
+
 
     })
 }
@@ -147,6 +161,6 @@ export const resendConfirmationCode = (Username: string): any => {
 
         const user = new CognitoUser({ Username, Pool });
 
-        user.resendConfirmationCode(()=> null);
+        user.resendConfirmationCode(() => null);
     });
 }

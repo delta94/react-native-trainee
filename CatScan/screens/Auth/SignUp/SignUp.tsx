@@ -17,7 +17,6 @@ import { Input } from 'react-native-elements';
 import { signUp } from '../actions';
 import { connect } from 'react-redux';
 import { AppState } from '../../../reducers';
-import { UserData } from 'amazon-cognito-identity-js';
 
 interface OwnStateProps {
   email: string;
@@ -43,7 +42,7 @@ interface DispatchFromProps {
   ) => void
 }
 interface StateFromProps {
-  userData?: UserData;
+  userData?: any;
   signUpSuccess?: boolean;
 }
 
