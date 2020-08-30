@@ -33,7 +33,7 @@ interface DispatchFromProps {
 interface StateFromProps {
 
 }
-class Home extends React.Component<any & any & any, OwnStateProps> {
+class Settings extends React.Component<any & any & any, OwnStateProps> {
 
     constructor(props: any) {
         super(props);
@@ -43,7 +43,9 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
             password: ''
         }
     }
-
+    onEditProfile = () => { 
+        this.props.navigation.navigate('EditProfile');
+    }
     onLogout = () => {
         this.props.logout();
     }
@@ -54,6 +56,7 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
                 <View style={styles.mainContainer}>
                     <Text>Settings Screen</Text>
                     <Button onPress={this.onLogout} title='Logout'></Button>
+                    <Button onPress={this.onEditProfile} title='EditProfile'></Button>
                 </View>
             </>
         );
@@ -73,4 +76,4 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
     logout
-})(Home);
+})(Settings);

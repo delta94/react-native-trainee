@@ -20,7 +20,6 @@ import { Button, InputItem } from '@ant-design/react-native';
 import { Input } from 'react-native-elements';
 import SignUp from '../../screens/Auth/SignUp/SignUp';
 import Login from '../../screens/Auth/Login/Login';
-import Status from '../Auth/Status/Status';
 import Logout from '../Auth/Logout/Logout'
 import ForgotPassword from '../../screens/Auth/ForgotPassword/ForgotPasword';
 import Home from '../../screens/Home/Home';
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {
-        userData: state.auth.userData
     };
 };
 

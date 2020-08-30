@@ -328,6 +328,3 @@ export const forgotPasswordSubmit = (email: string, confirmationCode: string, ne
     }
 }
 
-
-
-

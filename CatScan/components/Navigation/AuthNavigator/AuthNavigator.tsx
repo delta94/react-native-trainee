@@ -7,7 +7,6 @@ import { Button, InputItem } from '@ant-design/react-native';
 import { Input } from 'react-native-elements';
 import SignUp from '../../../screens/Auth/SignUp/SignUp';
 import Login from '../../../screens/Auth/Login/Login';
-import Status from '../../../components/Auth/Status/Status';
 import Logout from '../../../components/Auth/Logout/Logout'
 import ForgotPassword from '../../../screens/Auth/ForgotPassword/ForgotPasword';
 import Home from '../../../screens/Home/Home';

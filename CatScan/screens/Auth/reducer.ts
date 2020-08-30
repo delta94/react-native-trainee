@@ -2,7 +2,7 @@
 import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP, CONFIRM_USER, CHECK_AUTH, LOGOUT, FORGOT_PASSWORD, FORGOT_PASSWORD_SUBMIT } from './actions';
 import updateObject from '../../helpers/updateObject';
 import { GET_ACTION_FAIL } from '../../reducers';
-
+import { UPDATE_USER_ATTRIBUTES } from '../Settings/actions';
 
 
 export interface AuthState {
@@ -15,11 +15,21 @@ export interface AuthState {
     signUpSuccess?: boolean;
     isForgotPasswordActive?: boolean;
     isPasswordChanged?: boolean;
+    userData?: UserData;
+}
+
+export interface UserData {
+    phoneNumber: string;
+    firstName: string;
+    lastName: string;
+    companyName: string;
+    zipCode: string;
 }
 
 const initialState: AuthState = {
     isAuthorized: false,
-    userNotConfirmed: false
+    userNotConfirmed: false,
+    userData: undefined
 }
 
 export const reducer = (state = initialState, action: any) => {
@@ -27,7 +37,7 @@ export const reducer = (state = initialState, action: any) => {
         case GET_ACTION_FAIL.GET_ACTION_FAIL:
             return updateObject(state, { isError: true, errorMessage: action.errorMessage });
         case AUTHENTICATE.REQUEST:
-            return updateObject(state, { isAuthorized: false, userNotConfirmed : false,  validationMessage: undefined, userName : action.userName  });
+            return updateObject(state, { isAuthorized: false, userNotConfirmed: false, validationMessage: undefined, userName: action.userName });
         case AUTHENTICATE.SUCCESS:
             return updateObject(state, { isAuthorized: true, validationMessage: undefined });
         case AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION:
@@ -57,7 +67,11 @@ export const reducer = (state = initialState, action: any) => {
         case FORGOT_PASSWORD_SUBMIT.REQUEST:
             return updateObject(state, { isForgotPasswordActive: true, userName: action.userName });
         case FORGOT_PASSWORD_SUBMIT.SUCCESS:
-            return updateObject(state, { isForgotPasswordActive: false, isPasswordChanged : true });
+            return updateObject(state, { isForgotPasswordActive: false, isPasswordChanged: true });
+        case UPDATE_USER_ATTRIBUTES.REQUEST:
+            return updateObject(state, { isUserAttributesUpdated: false });
+        case UPDATE_USER_ATTRIBUTES.SUCCESS:
+            return updateObject(state, { isUserAttributesUpdated: true });
 
 
         default:

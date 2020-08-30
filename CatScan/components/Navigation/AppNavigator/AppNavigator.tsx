@@ -20,7 +20,6 @@ import { Button, InputItem } from '@ant-design/react-native';
 import { Input } from 'react-native-elements';
 import SignUp from '../../../screens/Auth/SignUp/SignUp';
 import Login from '../../../screens/Auth/Login/Login';
-import Status from '../../../components/Auth/Status/Status';
 import Logout from '../../../components/Auth/Logout/Logout'
 import ForgotPassword from '../../../screens/Auth/ForgotPassword/ForgotPasword';
 import Home from '../../../screens/Home/Home';
@@ -39,7 +38,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-
+import SettingsNavigator from '../SettingsNavigation/SettingsNavigator';
+ 
 const Tab = createBottomTabNavigator();
 
 class AppNavigator extends React.Component{
@@ -89,7 +89,7 @@ class AppNavigator extends React.Component{
                 <Tab.Screen name="Search" component={Home} />
                 <Tab.Screen name="BlueButton" component={Home} />
                 <Tab.Screen name="Car" component={Home} />
-                <Tab.Screen name="Settings" component={Settings} />
+                <Tab.Screen name="Settings" component={SettingsNavigator} />
 
             </Tab.Navigator>
         );
