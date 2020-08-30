@@ -1,5 +1,5 @@
 import React from 'react';
-import { confirmUser, resendConfirmationCode } from '../actions';
+import { confirmUser } from '../actions';
 import { connect } from 'react-redux';
 import {
     SafeAreaView,
@@ -25,10 +25,8 @@ interface OwnStateProps {
     code?: string;
 }
 
-
 interface DispatchFromProps {
     confirmUser: (code: string, userName: string) => void;
-    resendConfirmationCode: (userName: string) => void;
 }
 
 interface StateFromProps {
@@ -97,10 +95,7 @@ class ConfirmUser extends React.Component<any & StateFromProps, OwnStateProps> {
                                 inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
 
                             />
-
-                            <Button onPress={this.resendCode} style={styles.resendCode}>
-                                <Text style={{ fontWeight: 'bold' }}>Resend code</Text>
-                            </Button>
+                            
                             <Button onPress={this.onSubmit} style={styles.confirmButton}>
                                 <Text style={{ fontWeight: 'bold' }}>Confirm account</Text>
                             </Button>
@@ -207,6 +202,5 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-    confirmUser,
-    resendConfirmationCode
+    confirmUser
 })(ConfirmUser);

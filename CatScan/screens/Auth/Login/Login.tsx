@@ -65,7 +65,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
 
     componentDidUpdate(prevProps: StateFromProps, prevState: any) {
 
-        if (!prevProps.userNotConfirmed && this.props.userNotConfirmed ) {
+        if (!prevProps.userNotConfirmed && this.props.userNotConfirmed) {
             this.props.navigation.navigate('ConfirmUser');
         }
     }
@@ -113,7 +113,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                         <View style={styles.line} />
 
                         <View style={styles.signUpLinksView}>
-                            <Text style={styles.dontHaveAnAccount} onPress={this.navigateToSignUp}>Don't have an account?</Text>
+                                <Text style={styles.dontHaveAnAccount} onPress={this.navigateToSignUp}>Don't have an account?</Text>
                             <Text style={{ fontSize: 18 }} onPress={this.navigateToSignUp}>Sign Up</Text>
                         </View>
                     </View>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     loginImage: {
         width: 420,
         height: 400,
-        marginTop : Platform.OS === 'ios' ? 65 : 5
+        marginTop: Platform.OS === 'ios' ? 65 : 5
 
     },
     loginImageView: {

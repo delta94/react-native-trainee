@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { forgotPassword, forgotPasswordSubmit } from '../actions';
+import { forgotPassword, forgotPasswordSubmit, clearAllStates } from '../actions';
 import { connect } from 'react-redux';
 import {
     SafeAreaView,
@@ -20,6 +20,7 @@ import { Button, InputItem } from '@ant-design/react-native';
 import { Input, Header } from 'react-native-elements';
 
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
 interface OwnStateProps {
     email?: string;
@@ -31,6 +32,7 @@ interface OwnStateProps {
 interface DispatchFromProps {
     forgotPassword: (email: string) => void;
     forgotPasswordSubmit: (email: string, confirmationCode: string, newPassword: string) => void;
+    clearAllStates : () => void;
 }
 
 interface StateFromProps {
@@ -57,7 +59,7 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
         this.props.forgotPasswordSubmit(this.props.userName, this.state.confirmationCode, this.state.newPassword);
     }
 
-    componentDidUpdate(prevProps : StateFromProps) {
+    componentDidUpdate(prevProps: StateFromProps) {
 
         if (this.props.isPasswordChanged && !prevProps.isPasswordChanged) {
             this.props.navigation.navigate('Login');
@@ -96,7 +98,6 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
                         <View style={styles.forgotContainer}>
 
 
-
                             {!this.props.isForgotPasswordActive ?
                                 <>
                                     <Input
@@ -114,7 +115,15 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
                                 </>
                                 :
                                 <>
-                                    <Text style={{ fontWeight: 'bold' }}>{`Changing password for: ${this.props.userName}`}</Text>
+                                    <View style={styles.userInfo}>
+                                        <Text style={{ fontWeight: 'bold' }}>{`Changing password for: ${this.props.userName}`}</Text>
+                                        <IoniconsIcon 
+                                        name='close' 
+                                        size={20} 
+                                        color='red'
+                                        onPress={() => this.props.clearAllStates()}/>
+                                    </View>
+
                                     <Input
                                         placeholder="Enter Confirmation Code"
                                         onChangeText={text => this.setState({ confirmationCode: text })}
@@ -145,10 +154,6 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
                                     </Button>
                                 </>}
 
-
-
-
-
                         </View>
 
                     </View>
@@ -159,6 +164,12 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
 };
 
 const styles = StyleSheet.create({
+    userInfo : {
+        alignItems : 'center',
+        flexDirection : 'row',
+        paddingLeft: 20,
+    }
+    ,
     scrollView: {
 
     },
@@ -245,7 +256,7 @@ const styles = StyleSheet.create({
 
     },
     confirmRestorePasswordButton: {
-        marginTop: 15,
+        marginTop: 0,
         height: 60,
         color: 'black',
         backgroundColor: '#ebebeb',
@@ -264,5 +275,6 @@ const mapStateToProps = (state: AppState): StateFromProps => {
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
     forgotPassword,
-    forgotPasswordSubmit
+    forgotPasswordSubmit,
+    clearAllStates
 })(ForgotPassword);

@@ -43,6 +43,7 @@ class Settings extends React.Component<any & any & any, OwnStateProps> {
             password: ''
         }
     }
+
     onEditProfile = () => { 
         this.props.navigation.navigate('EditProfile');
     }

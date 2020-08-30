@@ -7,7 +7,8 @@ import {
   Text,
   StatusBar,
   TextInput,
-  Platform
+  Platform,
+  TouchableOpacity
 
 } from 'react-native';
 import { Header } from 'react-native-elements';
@@ -94,7 +95,6 @@ class SignUp extends React.Component<any & StateFromProps & DispatchFromProps, O
           <View style={styles.signUpContainer}>
 
             <View style={styles.header}>
-
               <MaterialIconsIcon
                 name="arrow-back"
                 color="black"

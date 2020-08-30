@@ -12,9 +12,7 @@ import thunk from 'redux-thunk';
 import AppNavigator from './components/Navigation/AppNavigator/AppNavigator';
 import AuthProvider from './components/Auth/AuthProvider';
 import Amplify from 'aws-amplify';
-import awsconfig from '../CatScan/Auth/configs/aws-exports';
-import SplashScreen from './screens/Splash/SplashScreen/Splash';
-import Splash from './screens/Splash/SplashScreen/Splash';
+import awsconfig from './configs/aws-exports';
 import SplashProvider from './screens/Splash/SplashProvider/SplashProvider';
 
 Amplify.configure(awsconfig);

@@ -1,5 +1,5 @@
 
-import { authenticate,  resendConfirmationCode as resendConfirmCode } from '../../Auth/helpers/accounts';
+
 import { getActionFailed } from '../../reducers';
 import { Auth } from 'aws-amplify';
 
@@ -10,10 +10,10 @@ export enum AUTHENTICATE {
 }
 
 
-export const authenticateRequest = (userName : string) => {
+export const authenticateRequest = (userName: string) => {
     return {
         type: AUTHENTICATE.REQUEST,
-        userName : userName
+        userName: userName
     };
 };
 
@@ -85,10 +85,10 @@ export enum SIGN_UP {
     REQUEST = 'SIGN_UP_REQUEST',
     SUCCESS = 'SIGN_UP_SUCCESS',
 }
-export const signUpRequest = (userName : string) => {
+export const signUpRequest = (userName: string) => {
     return {
         type: SIGN_UP.REQUEST,
-        userName : userName
+        userName: userName
     };
 };
 
@@ -240,25 +240,6 @@ export const logout = () => {
     }
 }
 
-
-//resendConfirmationCode
-
-export const resendConfirmationCode = (userName: string) => {
-    return (dispatch: any) => {
-
-        dispatch(logoutRequest());
-        resendConfirmCode(userName)
-            .then((data: any) => {
-                dispatch(logoutSuccess());
-            })
-            .catch((error: any) => {
-                dispatch(getActionFailed(error.message));
-            });
-
-    }
-}
-
-
 //Forgot Password
 
 export enum FORGOT_PASSWORD {
@@ -286,13 +267,16 @@ export const forgotPassword = (userName: string) => {
 
         Auth.forgotPassword(userName)
             .then((data: any) => {
+                console.log('forgotPassword succ');
                 dispatch(forgotPasswordSuccess());
             })
             .catch((error: any) => {
+                console.log('forgotPassword err');
                 dispatch(getActionFailed(error.message));
             });
     }
 }
+
 //Forgot password submit
 
 export enum FORGOT_PASSWORD_SUBMIT {
@@ -325,6 +309,24 @@ export const forgotPasswordSubmit = (email: string, confirmationCode: string, ne
             .catch((error: any) => {
                 dispatch(getActionFailed(error.message));
             });
+    }
+}
+
+//clear all states
+
+export enum CLEAR_ALL_STATES {
+    CLEAR_ALL_STATES = 'CLEAR_ALL_STATES'
+}
+export const clearAllStatesAction = () => {
+    return {
+        type: CLEAR_ALL_STATES.CLEAR_ALL_STATES
+    };
+};
+
+export const clearAllStates = () => {
+
+    return (dispatch: any) => {
+        dispatch(clearAllStatesAction());
     }
 }
 

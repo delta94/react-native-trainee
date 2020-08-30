@@ -1,8 +1,8 @@
 
-import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP, CONFIRM_USER, CHECK_AUTH, LOGOUT, FORGOT_PASSWORD, FORGOT_PASSWORD_SUBMIT } from './actions';
+import { AUTHENTICATE, AUTHENTICATE_FAIL, SIGN_UP, CONFIRM_USER, CHECK_AUTH, LOGOUT, FORGOT_PASSWORD, FORGOT_PASSWORD_SUBMIT, CLEAR_ALL_STATES } from './actions';
 import updateObject from '../../helpers/updateObject';
 import { GET_ACTION_FAIL } from '../../reducers';
-import { UPDATE_USER_ATTRIBUTES } from '../Settings/actions';
+import { UPDATE_USER_ATTRIBUTES, GET_USER_INFO } from '../Settings/actions';
 
 
 export interface AuthState {
@@ -15,10 +15,11 @@ export interface AuthState {
     signUpSuccess?: boolean;
     isForgotPasswordActive?: boolean;
     isPasswordChanged?: boolean;
-    userData?: UserData;
+    userAttributes?: UserAttributes;
+    isUserAttributesUpdated: boolean
 }
 
-export interface UserData {
+export interface UserAttributes {
     phoneNumber: string;
     firstName: string;
     lastName: string;
@@ -29,7 +30,16 @@ export interface UserData {
 const initialState: AuthState = {
     isAuthorized: false,
     userNotConfirmed: false,
-    userData: undefined
+    userAttributes: undefined,
+    errorMessage: undefined,
+    isError: false,
+    validationMessage: undefined,
+    userName: undefined,
+    signUpSuccess: false,
+    isForgotPasswordActive: false,
+    isUserAttributesUpdated: false
+
+
 }
 
 export const reducer = (state = initialState, action: any) => {
@@ -72,8 +82,12 @@ export const reducer = (state = initialState, action: any) => {
             return updateObject(state, { isUserAttributesUpdated: false });
         case UPDATE_USER_ATTRIBUTES.SUCCESS:
             return updateObject(state, { isUserAttributesUpdated: true });
-
-
+        case CLEAR_ALL_STATES.CLEAR_ALL_STATES:
+            return updateObject(state, { ...initialState })
+        case GET_USER_INFO.REQUEST:
+            return updateObject(state, { userAttributes : undefined })
+        case GET_USER_INFO.SUCCESS:
+            return updateObject(state, { userAttributes : action.userAttributes })
         default:
             return state;
     }

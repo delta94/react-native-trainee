@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-    TextInput,
-    Platform
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+  TextInput,
+  Platform
 
 } from 'react-native';
 import { Header } from 'react-native-elements';
@@ -17,55 +17,66 @@ import { Input } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 import { AppState } from '../../../reducers';
-import { updateUserAttributes } from '../actions';
+import { updateUserAttributes, getUserInfo } from '../actions';
+import { UserAttributes } from '../../Auth/reducer';
 
 
 interface OwnStateProps {
-    firstName: string;
-    lastName: string;
+  firstName: string;
+  lastName: string;
 
-    companyName: string;
-    phoneNumber: string;
-    zipCode: string;
+  companyName: string;
+  phoneNumber: string;
+  zipCode: string;
 }
 
 interface DispatchFromProps {
-    updateUserAttributes: (
-        phoneNumber: string,
-        firstName: string,
-        lastName: string,
-        companyName: string,
-        zipCode: string
-    ) => void
+  updateUserAttributes: (
+    phoneNumber: string,
+    firstName: string,
+    lastName: string,
+    companyName: string,
+    zipCode: string
+  ) => void;
+
+  getUserInfo: () => void;
 }
 interface StateFromProps {
-
+  userAttributes?: UserAttributes
 }
 
 
 class EditProfile extends React.Component<any & any & any, OwnStateProps> {
-    static title: string = "Edit Profile";
-    constructor(props: any) {
-        super(props);
+  static title: string = "Edit Profile";
+  constructor(props: any) {
+    super(props);
 
-        this.state = {
-            firstName: '',
-            lastName: '',
-            companyName: '',
-            phoneNumber: '',
-            zipCode: '',
-        }
+    this.state = {
+      firstName: '',
+      lastName: '',
+      companyName: '',
+      phoneNumber: '',
+      zipCode: '',
     }
+  }
 
-    onSubmit = (event: any) => {
-        let { phoneNumber, firstName, lastName, companyName, zipCode } = this.state;
-        this.props.updateUserAttributes(phoneNumber, firstName, lastName, companyName, zipCode);
-        
-      }
+  onSubmit = (event: any) => {
+    let { phoneNumber, firstName, lastName, companyName, zipCode } = this.state;
+    this.props.updateUserAttributes(phoneNumber, firstName, lastName, companyName, zipCode);
 
-    render() {
-        return (
-            <>
+  }
+  componentDidMount() {
+    this.props.getUserInfo();
+  }
+  componentDidUpdate(){
+    this.props.getUserInfo();
+  }
+  render() {
+
+ console.log(this.props.userAttributes)
+
+    return ( 
+      <>
         <ScrollView>
           <StatusBar barStyle='dark-content' />
 
@@ -89,7 +100,7 @@ class EditProfile extends React.Component<any & any & any, OwnStateProps> {
             </View>
             <View style={styles.credentialsInputs}>
 
-              
+
             </View>
 
             <View style={styles.line} />
@@ -135,12 +146,12 @@ class EditProfile extends React.Component<any & any & any, OwnStateProps> {
           </View>
         </ScrollView>
       </>
-        );
-    }
+    );
+  }
 };
 
 const styles = StyleSheet.create({
-    
+
   zipCode: {
     width: '45%'
   },
@@ -231,10 +242,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: AppState): StateFromProps => {
-    return {
-    };
+  return {
+    userAttributes: state.auth.userAttributes
+  };
 };
 
 export default connect<StateFromProps, DispatchFromProps, any, AppState>(mapStateToProps, {
-    updateUserAttributes
+  updateUserAttributes,
+  getUserInfo
 })(EditProfile);
