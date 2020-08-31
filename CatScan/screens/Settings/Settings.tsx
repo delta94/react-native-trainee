@@ -18,7 +18,7 @@ import { AppState } from '../../reducers';
 
 import { Input, Button } from 'react-native-elements';
 import { logout } from '../Auth/actions';
-
+import { styles } from './styles';
 
 interface OwnStateProps {
     email: string;
@@ -44,7 +44,7 @@ class Settings extends React.Component<any & any & any, OwnStateProps> {
         }
     }
 
-    onEditProfile = () => { 
+    onEditProfile = () => {
         this.props.navigation.navigate('EditProfile');
     }
     onLogout = () => {
@@ -63,12 +63,6 @@ class Settings extends React.Component<any & any & any, OwnStateProps> {
         );
     }
 };
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        marginTop: 100
-    },
-});
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {

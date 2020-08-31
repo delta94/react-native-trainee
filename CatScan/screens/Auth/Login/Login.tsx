@@ -2,17 +2,10 @@ import React, { useState, useContext } from 'react';
 import { login } from '../actions';
 import { connect } from 'react-redux';
 import {
-    SafeAreaView,
-    StyleSheet,
     ScrollView,
     View,
     Text,
-    StatusBar,
-    TextInput,
-    Alert,
     Image,
-    Platform
-
 } from 'react-native';
 
 import { AppState } from '../../../reducers';
@@ -22,14 +15,12 @@ import { Input } from 'react-native-elements';
 import SignUp from '../SignUp/SignUp';
 
 import { NavigationProp } from '@react-navigation/native'
-
+import { styles } from './styles'
 interface OwnStateProps {
     email: string;
     password: string;
     validationMessage?: string;
-
 }
-
 
 interface DispatchFromProps {
     login: (email: string, password: string) => void
@@ -113,7 +104,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                         <View style={styles.line} />
 
                         <View style={styles.signUpLinksView}>
-                                <Text style={styles.dontHaveAnAccount} onPress={this.navigateToSignUp}>Don't have an account?</Text>
+                            <Text style={styles.dontHaveAnAccount} onPress={this.navigateToSignUp}>Don't have an account?</Text>
                             <Text style={{ fontSize: 18 }} onPress={this.navigateToSignUp}>Sign Up</Text>
                         </View>
                     </View>
@@ -124,64 +115,6 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
 };
 
 
-const styles = StyleSheet.create({
-    scrollView: {
-
-    },
-    textInput: {
-        height: 70,
-        paddingLeft: 20,
-        backgroundColor: '#f7f7f7',
-        marginTop: 15,
-        fontSize: 17,
-        borderRadius: 10,
-
-
-    },
-    passwordInput: {
-        marginTop: 15,
-        marginBottom: 20
-    },
-    signInButton: {
-        height: 60,
-        color: 'black',
-        backgroundColor: '#ebebeb'
-    },
-    inputLabel: {
-        fontSize: 20
-    },
-    loginContainer: {
-        // marginTop: 25,
-        margin: 15,
-        marginBottom: 30
-    },
-    line: {
-        borderBottomColor: '#ebebeb',
-        borderBottomWidth: 1,
-    },
-    loginImage: {
-        width: 420,
-        height: 400,
-        marginTop: Platform.OS === 'ios' ? 65 : 5
-
-    },
-    loginImageView: {
-
-    },
-    loginLayout: {
-        backgroundColor: 'white',
-        height: '100%'
-    },
-    signUpLinksView: {
-        alignItems: 'center',
-        flexDirection: 'column'
-    },
-    dontHaveAnAccount: {
-        fontSize: 18,
-        color: '#a3a3a3',
-        margin: 30,
-    }
-});
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {

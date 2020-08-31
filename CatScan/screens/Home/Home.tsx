@@ -19,12 +19,11 @@ import { AppState } from '../../reducers';
 
 import { InputItem } from '@ant-design/react-native';
 import { Input, Button } from 'react-native-elements';
-
+import { styles } from './styles';
 
 
 interface OwnStateProps {
-    email: string;
-    password: string;
+
 }
 
 
@@ -41,19 +40,11 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
         super(props);
 
         this.state = {
-            email: '',
-            password: ''
+       
         }
     }
 
-    
 
-    onLogout = (event: any) => {
-        event.preventDefault();
-        //clear
-
-    }
-   
     render() {
         return (
             <>
@@ -66,12 +57,7 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
 };
 
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        marginTop : 100
-    },
-  
-});
+
 
 const mapStateToProps = (state: AppState): StateFromProps => {
     return {

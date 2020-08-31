@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, Image, AppState } from 'react-native';
-
+import React from 'react';
+import { View, Image } from 'react-native';
+import { styles } from './styles';
 
 
 export const Splash = () => {
@@ -13,15 +13,3 @@ export const Splash = () => {
 
 export default Splash;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f2f2f2',
-    },
-    image: {
-        height: 500,
-        width: 500,
-    },
-});
