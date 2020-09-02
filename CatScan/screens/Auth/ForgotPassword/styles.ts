@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../../constants/styles/colors';
 
 export const styles = StyleSheet.create({
     userInfo: {
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
     textInput: {
         height: 70,
         paddingLeft: 20,
-        backgroundColor: '#f7f7f7',
+        backgroundColor: colors.whiteSmoke,
         fontSize: 17,
         borderRadius: 10,
         margin: 5
@@ -26,7 +27,7 @@ export const styles = StyleSheet.create({
     signInButton: {
         height: 60,
         color: 'black',
-        backgroundColor: '#ebebeb'
+        backgroundColor: colors.whisper
     },
     inputLabel: {
         fontSize: 20
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
         marginBottom: 30
     },
     line: {
-        borderBottomColor: '#ebebeb',
+        borderBottomColor: colors.whisper,
         borderBottomWidth: 1,
     },
     logoImage: {
@@ -95,14 +96,14 @@ export const styles = StyleSheet.create({
         marginTop: 105,
         height: 60,
         color: 'black',
-        backgroundColor: '#ebebeb',
+        backgroundColor: colors.whisper,
 
     },
     confirmRestorePasswordButton: {
         marginTop: 0,
         height: 60,
         color: 'black',
-        backgroundColor: '#ebebeb',
+        backgroundColor: colors.whisper,
 
     }
 });

@@ -1,5 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 
+import { colors } from '../../../constants/styles/colors';
+
 
 export const styles = StyleSheet.create({
     scrollView: {
@@ -8,7 +10,7 @@ export const styles = StyleSheet.create({
     textInput: {
         height: 70,
         paddingLeft: 20,
-        backgroundColor: '#f7f7f7',
+        backgroundColor: colors.whiteSmoke,
         marginTop: 15,
         fontSize: 17,
         borderRadius: 10,
@@ -22,7 +24,7 @@ export const styles = StyleSheet.create({
     signInButton: {
         height: 60,
         color: 'black',
-        backgroundColor: '#ebebeb'
+        backgroundColor: colors.whisper
     },
     inputLabel: {
         fontSize: 20
@@ -33,7 +35,7 @@ export const styles = StyleSheet.create({
         marginBottom: 30
     },
     line: {
-        borderBottomColor: '#ebebeb',
+        borderBottomColor: colors.whisper,
         borderBottomWidth: 1,
     },
     loginImage: {
@@ -54,7 +56,7 @@ export const styles = StyleSheet.create({
     },
     dontHaveAnAccount: {
         fontSize: 18,
-        color: '#a3a3a3',
+        color: colors.darkGray,
         marginTop: 0,
         marginBottom: 30,
         marginLeft: 30,

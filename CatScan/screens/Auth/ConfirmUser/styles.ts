@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../../constants/styles/colors';
 
 export const styles = StyleSheet.create({
     scrollView: {
@@ -7,7 +8,7 @@ export const styles = StyleSheet.create({
     textInput: {
         height: 70,
         paddingLeft: 20,
-        backgroundColor: '#f7f7f7',
+        backgroundColor: colors.whiteSmoke,
         fontSize: 17,
         borderRadius: 10,
 
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
         marginBottom: 30
     },
     line: {
-        borderBottomColor: '#ebebeb',
+        borderBottomColor: colors.whisper,
         borderBottomWidth: 1,
     },
     logoImage: {
@@ -43,7 +44,7 @@ export const styles = StyleSheet.create({
     },
     dontHaveAnAccount: {
         fontSize: 18,
-        color: '#a3a3a3',
+        color: colors.darkGray,
         margin: 30
     },
     header: {
@@ -73,7 +74,7 @@ export const styles = StyleSheet.create({
         marginTop: 125,
         height: 60,
         color: 'black',
-        backgroundColor: '#ebebeb',
+        backgroundColor: colors.whisper,
 
     },
     resendCode: {
@@ -81,6 +82,6 @@ export const styles = StyleSheet.create({
         height: 40,
         width: '50%',
         color: 'black',
-        backgroundColor: '#ebebeb',
+        backgroundColor: colors.whisper,
     }
 });

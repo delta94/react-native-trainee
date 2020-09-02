@@ -1,5 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 
+import { colors } from '../../../constants/styles/colors';
+
 export const styles = StyleSheet.create({
 
     zipCode: {
@@ -32,7 +34,6 @@ export const styles = StyleSheet.create({
 
     },
     pageDescriptionView: {
-        //backgroundColor: '#f2f2f2',
         flexDirection: 'column',
         alignItems: 'center',
     },
@@ -41,12 +42,12 @@ export const styles = StyleSheet.create({
 
     },
     signUpHeader: {
-        backgroundColor: '#f2f2f2'
+        backgroundColor: colors.whiteSmoke2
     },
     textInput: {
         height: 55,
         paddingLeft: 20,
-        backgroundColor: '#f7f7f7',
+        backgroundColor: colors.whiteSmoke,
         marginTop: 15,
         fontSize: 17,
         borderRadius: 10,
@@ -57,7 +58,6 @@ export const styles = StyleSheet.create({
         height: 60,
         width: '92%',
         color: 'black',
-        //backgroundColor: '#ebebeb',
         marginTop: 230
     },
     signUpButtonView: {
@@ -66,12 +66,11 @@ export const styles = StyleSheet.create({
 
     },
     line: {
-        borderBottomColor: '#ebebeb',
+        borderBottomColor: colors.whisper,
         borderBottomWidth: 1,
     },
 
     header: {
-        //backgroundColor: '#f2f2f2',
         flexDirection: 'row',
         marginLeft: 15,
         marginTop: 10
