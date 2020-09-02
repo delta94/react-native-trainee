@@ -13,7 +13,6 @@ import AppNavigator from './components/Navigation/AppNavigator/AppNavigator';
 import AuthProvider from './components/Auth/AuthProvider';
 import Amplify from 'aws-amplify';
 import awsconfig from './configs/aws-exports';
-import SplashProvider from './screens/Splash/SplashProvider/SplashProvider';
 
 Amplify.configure(awsconfig);
 
@@ -39,13 +38,13 @@ class App extends React.Component {
           {/* <Logout />  */}
           {/* <ForgotPassword /> */}
 
-          <SplashProvider>
+          
             <AuthProvider>
               <NavigationContainer>
                 <AppNavigator />
               </NavigationContainer>
             </AuthProvider>
-          </SplashProvider>
+          
         </Provider>
       </>
     );
