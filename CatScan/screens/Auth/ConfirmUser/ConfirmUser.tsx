@@ -21,6 +21,9 @@ import { Input, Header } from 'react-native-elements';
 
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import { styles } from './styles'
+import CatScanBigLogo from '../../../assets/images/CatScanBigLogo.png'
+
+
 interface OwnStateProps {
     code?: string;
 }
@@ -63,7 +66,7 @@ class ConfirmUser extends React.Component<any & StateFromProps, OwnStateProps> {
                         <View style={styles.mainLayout}>
 
                             <View style={styles.logoImageView}>
-                                <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                                <Image style={styles.logoImage} source={CatScanBigLogo} />
                             </View>
 
                             <View style={styles.header}>

@@ -18,6 +18,8 @@ import SignUp from '../SignUp/SignUp';
 import { NavigationProp } from '@react-navigation/native'
 import { styles } from './styles'
 
+import CatScanBigLogo from '../../../assets/images/CatScanBigLogo.png'
+
 interface OwnStateProps {
     email: string;
     password: string;
@@ -71,7 +73,7 @@ class Login extends React.Component<StateFromProps & DispatchFromProps & any, Ow
                         <View style={styles.loginLayout}>
 
                             <View style={styles.loginImageView}>
-                                <Image style={styles.loginImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                                <Image style={styles.loginImage} source={CatScanBigLogo} />
                             </View>
 
                             <View style={styles.loginContainer}>

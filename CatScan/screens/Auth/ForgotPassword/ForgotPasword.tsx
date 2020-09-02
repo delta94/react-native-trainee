@@ -22,6 +22,9 @@ import { Input, Header } from 'react-native-elements';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import { styles } from './styles';
+
+import CatScanBigLogo from '../../../assets/images/CatScanBigLogo.png'
+
 interface OwnStateProps {
     email?: string;
     confirmationCode?: string;
@@ -75,11 +78,11 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
 
                             {!this.props.isForgotPasswordActive ?
                                 <View style={styles.logoImageView}>
-                                    <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                                    <Image style={styles.logoImage} source={CatScanBigLogo} />
                                 </View>
                                 :
                                 <View style={styles.logoImageView}>
-                                    <Image style={styles.confirmPasswordLogoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                                    <Image style={styles.confirmPasswordLogoImage} source={CatScanBigLogo} />
                                 </View>
                             }
 
