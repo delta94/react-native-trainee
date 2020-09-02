@@ -45,6 +45,7 @@ export const updateUserAttributes = (
                     'custom:zipCode': zipCode,
                 }).then((data: any) => {
                     dispatch(updateUserAttributesSuccess())
+                    getUserInfo();
                     console.log('updateUserAttributes succ', data);
                 })
                     .catch((error: any) => {
@@ -63,23 +64,27 @@ export enum GET_USER_INFO {
     SUCCESS = 'GET_USER_INFO_SUCCESS'
 }
 export const getUserInfoRequest = () => {
-  
+
     return {
         type: GET_USER_INFO.REQUEST
 
     };
 };
 
-export const getUserInfoSuccess = (data : any) => {
+export const getUserInfoSuccess = (data: any) => {
     return {
         type: GET_USER_INFO.SUCCESS,
         userAttributes: mapUserAttributes(data)
     };
 };
 
-const mapUserAttributes = (data : any) : UserAttributes => {
+const mapUserAttributes = (data: any): UserAttributes => {
     return {
-        phoneNumber : data['custom:custom:phoneNumber']
+        phoneNumber: data['custom:custom:phoneNumber'] ? data['custom:custom:phoneNumber'] : '',
+        companyName: data['custom:companyName'] ? data['custom:companyName'] : '',
+        firstName: data['custom:firstName'] ? data['custom:firstName'] : '',
+        lastName: data['custom:lastName'] ? data['custom:lastName'] : '',
+        zipCode:  data['custom:zipCode'] ? data['custom:zipCode'] : ''
     } as UserAttributes
 }
 
@@ -90,10 +95,10 @@ export const getUserInfo = () => {
 
         Auth.currentAuthenticatedUser()
             .then((user: any) => {
-                getUserInfoSuccess(user.attributes);
-                console.log('get user succ', user);
+                dispatch(getUserInfoSuccess(user.attributes));
+                console.log('get user attr succ', user.attributes);
             })
-            .catch(e => console.log('getUser err', e));
+            .catch(e => console.log('get User attr err', e));
     }
 }
 

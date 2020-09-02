@@ -40,7 +40,7 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
         super(props);
 
         this.state = {
-       
+
         }
     }
 
@@ -48,9 +48,11 @@ class Home extends React.Component<any & any & any, OwnStateProps> {
     render() {
         return (
             <>
-                <View style={styles.mainContainer}>
-                    <Text>Home Screen</Text>
-                </View>
+                <SafeAreaView>
+                    <View style={styles.mainContainer}>
+                        <Text>Home Screen</Text>
+                    </View>
+                </SafeAreaView>
             </>
         );
     }

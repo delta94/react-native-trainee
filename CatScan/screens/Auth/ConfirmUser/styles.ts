@@ -28,8 +28,7 @@ export const styles = StyleSheet.create({
     logoImage: {
         width: 420,
         height: 400,
-        //marginTop: 55 //ios
-        marginTop: 5 //android
+        marginTop: 0
 
     },
     logoImageView: {
@@ -71,7 +70,7 @@ export const styles = StyleSheet.create({
 
     },
     confirmButton: {
-        marginTop: 155,
+        marginTop: 125,
         height: 60,
         color: 'black',
         backgroundColor: '#ebebeb',

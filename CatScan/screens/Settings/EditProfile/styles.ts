@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
         width: '92%',
         color: 'black',
         //backgroundColor: '#ebebeb',
-        marginTop: Platform.OS === 'ios' ? 230 : 200
+        marginTop: 230
     },
     signUpButtonView: {
         flexDirection: 'column',
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
         //backgroundColor: '#f2f2f2',
         flexDirection: 'row',
         marginLeft: 15,
-        marginTop: Platform.OS === 'ios' ? 60 : 30
+        marginTop: 10
     },
     goBackIcon: {
 
@@ -87,6 +87,6 @@ export const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: 'white',
         height: '100%',
-        marginTop: Platform.OS === 'ios' ? 20 : 0 //ios
+        marginTop: 20
     }
 });

@@ -127,9 +127,11 @@ export const signUp = (
             },
         })
             .then((data: any) => {
+                console.log('sign up success', data);
                 dispatch(signUpSuccess(email, password))
             })
             .catch((error: any) => {
+                console.log('sign up error', error);
                 dispatch(getActionFailed(error.message));
             });
     }

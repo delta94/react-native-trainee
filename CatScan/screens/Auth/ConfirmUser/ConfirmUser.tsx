@@ -58,52 +58,54 @@ class ConfirmUser extends React.Component<any & StateFromProps, OwnStateProps> {
     render() {
         return (
             <>
-                <ScrollView>
-                    <View style={styles.mainLayout}>
+                <SafeAreaView>
+                    <ScrollView>
+                        <View style={styles.mainLayout}>
 
-                        <View style={styles.logoImageView}>
-                            <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
-                        </View>
+                            <View style={styles.logoImageView}>
+                                <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                            </View>
 
-                        <View style={styles.header}>
+                            <View style={styles.header}>
 
-                            <MaterialIconsIcon
-                                name="arrow-back"
-                                color="black"
-                                size={25}
-                                onPress={() => this.goBack()}
-                                style={styles.goBackIcon}
-                            />
-                            <Text style={styles.headerText}>{ConfirmUser.title}</Text>
+                                <MaterialIconsIcon
+                                    name="arrow-back"
+                                    color="black"
+                                    size={25}
+                                    onPress={() => this.goBack()}
+                                    style={styles.goBackIcon}
+                                />
+                                <Text style={styles.headerText}>{ConfirmUser.title}</Text>
 
-                        </View>
-                        <View style={styles.pageDescriptionView}>
-                            <Text style={styles.pageDescription}>
-                                Please check your email and find confirmation code for user
+                            </View>
+                            <View style={styles.pageDescriptionView}>
+                                <Text style={styles.pageDescription}>
+                                    Please check your email and find confirmation code for user
                                 <Text style={{ fontWeight: 'bold' }}>{`  ${this.props.userName}`}</Text>
-                            </Text>
+                                </Text>
+                            </View>
+
+                            <View style={styles.confirmContainer}>
+
+
+                                <Input
+                                    placeholder="Enter your confirmation code"
+                                    onChangeText={text => this.setState({ code: text })}
+                                    containerStyle={styles.textInput}
+                                    leftIcon={<Text></Text>}
+                                    inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                />
+
+                                <Button onPress={this.onSubmit} style={styles.confirmButton}>
+                                    <Text style={{ fontWeight: 'bold' }}>Confirm account</Text>
+                                </Button>
+
+                            </View>
+
                         </View>
-
-                        <View style={styles.confirmContainer}>
-
-
-                            <Input
-                                placeholder="Enter your confirmation code"
-                                onChangeText={text => this.setState({ code: text })}
-                                containerStyle={styles.textInput}
-                                leftIcon={<Text></Text>}
-                                inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
-
-                            />
-
-                            <Button onPress={this.onSubmit} style={styles.confirmButton}>
-                                <Text style={{ fontWeight: 'bold' }}>Confirm account</Text>
-                            </Button>
-
-                        </View>
-
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                </SafeAreaView>
             </>
         );
     }

@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     loginImage: {
         width: 420,
         height: 400,
-        marginTop: Platform.OS === 'ios' ? 65 : 5
+        marginTop: 35
     },
     loginImageView: {
 
@@ -55,6 +55,9 @@ export const styles = StyleSheet.create({
     dontHaveAnAccount: {
         fontSize: 18,
         color: '#a3a3a3',
-        margin: 30,
+        marginTop: 0,
+        marginBottom: 30,
+        marginLeft: 30,
+        marginRight: 30,
     }
 });

@@ -54,11 +54,13 @@ class Settings extends React.Component<any & any & any, OwnStateProps> {
     render() {
         return (
             <>
-                <View style={styles.mainContainer}>
-                    <Text>Settings Screen</Text>
-                    <Button onPress={this.onLogout} title='Logout'></Button>
-                    <Button onPress={this.onEditProfile} title='EditProfile'></Button>
-                </View>
+                <SafeAreaView>
+                    <View style={styles.mainContainer}>
+                        <Text>Settings Screen</Text>
+                        <Button onPress={this.onLogout} title='Logout'></Button>
+                        <Button onPress={this.onEditProfile} title='EditProfile'></Button>
+                    </View>
+                </SafeAreaView>
             </>
         );
     }

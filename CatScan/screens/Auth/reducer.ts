@@ -45,49 +45,52 @@ const initialState: AuthState = {
 export const reducer = (state = initialState, action: any) => {
     switch (action.type) {
         case GET_ACTION_FAIL.GET_ACTION_FAIL:
-            return updateObject(state, { isError: true, errorMessage: action.errorMessage });
+            return {...state, isError: true, errorMessage: action.errorMessage };
         case AUTHENTICATE.REQUEST:
-            return updateObject(state, { isAuthorized: false, userNotConfirmed: false, validationMessage: undefined, userName: action.userName });
+            return {...state, isAuthorized: false, userNotConfirmed: false, validationMessage: undefined, userName: action.userName };
         case AUTHENTICATE.SUCCESS:
-            return updateObject(state, { isAuthorized: true, validationMessage: undefined });
+            return {...state, isAuthorized: true, validationMessage: undefined };
         case AUTHENTICATE_FAIL.USER_NOT_CONFIRMED_EXCEPTION:
-            return updateObject(state, { userNotConfirmed: true, validationMessage: action.validationMessage });
+            return {...state, userNotConfirmed: true, validationMessage: action.validationMessage };
         case AUTHENTICATE_FAIL.NOT_AUTHORIZED_EXCEPTION:
-            return updateObject(state, { validationMessage: action.validationMessage });
+            return {...state, validationMessage: action.validationMessage };
         case SIGN_UP.REQUEST:
-            return updateObject(state, { signUpSuccess: false, userName: action.UserName });
+            return {...state, signUpSuccess: false, userName: action.UserName };
         case SIGN_UP.SUCCESS:
-            return updateObject(state, { signUpSuccess: true, userName: action.UserName });
+            return {...state, signUpSuccess: true, userName: action.UserName };
         case CONFIRM_USER.REQUEST:
-            return updateObject(state, { userNotConfirmed: true });
+            return {...state, userNotConfirmed: true };
         case CONFIRM_USER.SUCCESS:
-            return updateObject(state, { userNotConfirmed: false, isAuthorized: true, validationMessage: undefined });
+            return {...state, userNotConfirmed: false, isAuthorized: true, validationMessage: undefined };
         case CHECK_AUTH.REQUEST:
-            return updateObject(state, { isAuthorized: false });
+            return {...state, isAuthorized: false };
         case CHECK_AUTH.SUCCESS:
-            return updateObject(state, { isAuthorized: true });
+            return {...state, isAuthorized: true };
         case LOGOUT.REQUEST:
-            return updateObject(state, { isAuthorized: true });
+            return {...state, isAuthorized: true };
         case LOGOUT.SUCCESS:
-            return updateObject(state, { isAuthorized: false, userName: undefined });
+            return {...state, isAuthorized: false, userName: undefined };
         case FORGOT_PASSWORD.REQUEST:
-            return updateObject(state, { isForgotPasswordActive: false, userName: action.userName });
+            return {...state, isForgotPasswordActive: false, userName: action.userName };
         case FORGOT_PASSWORD.SUCCESS:
-            return updateObject(state, { isForgotPasswordActive: true });
+            return {...state, isForgotPasswordActive: true };
         case FORGOT_PASSWORD_SUBMIT.REQUEST:
-            return updateObject(state, { isForgotPasswordActive: true, userName: action.userName });
+            return {...state, isForgotPasswordActive: true, userName: action.userName };
         case FORGOT_PASSWORD_SUBMIT.SUCCESS:
-            return updateObject(state, { isForgotPasswordActive: false, isPasswordChanged: true });
+            return {...state, isForgotPasswordActive: false, isPasswordChanged: true };
         case UPDATE_USER_ATTRIBUTES.REQUEST:
-            return updateObject(state, { isUserAttributesUpdated: false });
+            return {...state, isUserAttributesUpdated: false };
         case UPDATE_USER_ATTRIBUTES.SUCCESS:
-            return updateObject(state, { isUserAttributesUpdated: true });
+            return { ...state, isUserAttributesUpdated: true };
         case CLEAR_ALL_STATES.CLEAR_ALL_STATES:
-            return updateObject(state, { ...initialState })
+            return {...state, ...initialState };
         case GET_USER_INFO.REQUEST:
-            return updateObject(state, { userAttributes : undefined })
+            console.log('inreducer1' , action.userAttributes)
+            return {...state, userAttributes : undefined };
         case GET_USER_INFO.SUCCESS:
-            return updateObject(state, { userAttributes : action.userAttributes })
+            console.log('inreducer' , action.userAttributes)
+            return {...state, userAttributes : action.userAttributes };
+
         default:
             return state;
     }

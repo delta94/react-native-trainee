@@ -20,6 +20,7 @@ import { AppState } from '../../../reducers';
 import { updateUserAttributes, getUserInfo } from '../actions';
 import { UserAttributes } from '../../Auth/reducer';
 import { styles } from './styles';
+import { NavigationProp, NavigationContainerProps } from '@react-navigation/native';
 
 interface OwnStateProps {
   firstName: string;
@@ -42,13 +43,14 @@ interface DispatchFromProps {
   getUserInfo: () => void;
 }
 interface StateFromProps {
-  userAttributes?: UserAttributes
+  userAttributes?: UserAttributes,
+  isUserAttributesUpdated: boolean
 }
 
 
-class EditProfile extends React.Component<any & any & any, OwnStateProps> {
+class EditProfile extends React.Component<StateFromProps & DispatchFromProps & any, OwnStateProps> {
   static title: string = "Edit Profile";
-  constructor(props: any) {
+  constructor(props: StateFromProps & DispatchFromProps & any) {
     super(props);
 
     this.state = {
@@ -68,83 +70,99 @@ class EditProfile extends React.Component<any & any & any, OwnStateProps> {
   componentDidMount() {
     this.props.getUserInfo();
   }
-  componentDidUpdate() {
-    this.props.getUserInfo();
+
+  componentDidUpdate(prevProps: StateFromProps) {
+    const thisProps = this.props as StateFromProps;
+
+    if (thisProps.userAttributes && thisProps.userAttributes != prevProps.userAttributes) {
+      this.setState({
+        firstName: thisProps.userAttributes.firstName,
+        lastName: thisProps.userAttributes.lastName,
+        companyName: thisProps.userAttributes.companyName,
+        phoneNumber: thisProps.userAttributes.phoneNumber,
+        zipCode: thisProps.userAttributes.zipCode
+      })
+    }
   }
   render() {
 
-    console.log(this.props.userAttributes)
-
     return (
       <>
-        <ScrollView>
-          <StatusBar barStyle='dark-content' />
+        <SafeAreaView>
+          <ScrollView>
+            <StatusBar barStyle='dark-content' />
 
-          <View style={styles.mainContainer}>
+            <View style={styles.mainContainer}>
 
-            <View style={styles.header}>
+              <View style={styles.header}>
 
-              <MaterialIconsIcon
-                name="arrow-back"
-                color="black"
-                size={25}
-                onPress={() => this.props.navigation.goBack()}
-                style={styles.goBackIcon}
-              />
-              <Text style={styles.headerText}>{EditProfile.title}</Text>
-
-            </View>
-
-            <View style={styles.pageDescriptionView}>
-              <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
-            </View>
-            <View style={styles.credentialsInputs}>
-
-
-            </View>
-
-            <View style={styles.line} />
-
-            <View style={styles.personalInfoInputs}>
-
-              <View style={styles.firstAndLastNames}>
-
-                <TextInput
-                  placeholder='First Name'
-                  onChangeText={text => this.setState({ firstName: text })}
-                  style={[styles.textInput, styles.firstName]}
+                <MaterialIconsIcon
+                  name="arrow-back"
+                  color="black"
+                  size={25}
+                  onPress={() => this.props.navigation.goBack()}
+                  style={styles.goBackIcon}
                 />
+                <Text style={styles.headerText}>{EditProfile.title}</Text>
 
+              </View>
+
+              <View style={styles.pageDescriptionView}>
+                <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
+              </View>
+              <View style={styles.credentialsInputs}>
+
+
+              </View>
+
+              <View style={styles.line} />
+
+              <View style={styles.personalInfoInputs}>
+
+                <View style={styles.firstAndLastNames}>
+
+                  <TextInput
+                    placeholder='First Name'
+                    value={this.state.firstName}
+                    onChangeText={text => this.setState({ firstName: text })}
+                    style={[styles.textInput, styles.firstName]}
+                  />
+
+                  <TextInput
+                    placeholder='Last Name'
+                    value={this.state.lastName}
+                    onChangeText={text => this.setState({ lastName: text })}
+                    style={[styles.textInput, styles.lastName]}
+
+                  />
+                </View>
                 <TextInput
-                  placeholder='Last Name'
-                  onChangeText={text => this.setState({ lastName: text })}
-                  style={[styles.textInput, styles.lastName]}
+                  placeholder="Company name"
+                  value={this.state.companyName}
+                  onChangeText={text => this.setState({ companyName: text })}
+                  style={[styles.textInput]}
 
+                />
+                <TextInput
+                  placeholder='Phone number '
+                  value={this.state.phoneNumber}
+                  onChangeText={text => this.setState({ phoneNumber: text })}
+                  style={[styles.textInput]}
+                />
+                <TextInput
+                  placeholder='Zip code'
+                  value={this.state.zipCode}
+                  onChangeText={text => this.setState({ zipCode: text })}
+                  style={[styles.textInput, styles.zipCode]}
                 />
               </View>
-              <TextInput
-                placeholder="Company name"
-                onChangeText={text => this.setState({ companyName: text })}
-                style={[styles.textInput]}
+              <View style={styles.signUpButtonView}>
+                <Button onPress={this.onSubmit} style={styles.signUpButton}>Save Changes</Button>
+              </View>
 
-              />
-              <TextInput
-                placeholder='Phone number '
-                onChangeText={text => this.setState({ phoneNumber: text })}
-                style={[styles.textInput]}
-              />
-              <TextInput
-                placeholder='Zip code'
-                onChangeText={text => this.setState({ zipCode: text })}
-                style={[styles.textInput, styles.zipCode]}
-              />
             </View>
-            <View style={styles.signUpButtonView}>
-              <Button onPress={this.onSubmit} style={styles.signUpButton}>Save Changes</Button>
-            </View>
-
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
       </>
     );
   }
@@ -153,7 +171,8 @@ class EditProfile extends React.Component<any & any & any, OwnStateProps> {
 
 const mapStateToProps = (state: AppState): StateFromProps => {
   return {
-    userAttributes: state.auth.userAttributes
+    userAttributes: state.auth.userAttributes,
+    isUserAttributesUpdated: state.auth.isUserAttributesUpdated
   };
 };
 

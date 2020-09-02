@@ -90,88 +90,98 @@ class SignUp extends React.Component<any & StateFromProps & DispatchFromProps, O
   render() {
     return (
       <>
-        <ScrollView>
-          <StatusBar barStyle='dark-content' />
+        <SafeAreaView>
+          <ScrollView>
+            <StatusBar barStyle='dark-content' />
 
-          <View style={styles.signUpContainer}>
+            <View style={styles.signUpContainer}>
 
-            <View style={styles.header}>
-              <MaterialIconsIcon
-                name="arrow-back"
-                color="black"
-                size={25}
-                onPress={() => this.props.navigation.goBack()}
-                style={styles.goBackIcon}
-              />
-              <Text style={styles.headerText}>{SignUp.title}</Text>
-
-            </View>
-
-            <View style={styles.pageDescriptionView}>
-              <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
-            </View>
-            <View style={styles.credentialsInputs}>
-
-              <TextInput
-                placeholder="Enter Email"
-                onChangeText={text => this.setState({ email: text })}
-                style={[styles.textInput]}
-
-              />
-              <TextInput
-                placeholder='Enter Password'
-                onChangeText={text => this.setState({ password: text })}
-                style={[styles.textInput]}
-              />
-              <TextInput
-                placeholder='Repeat Password'
-                onChangeText={text => this.setState({ repeatPassword: text })}
-                style={[styles.textInput]}
-              />
-            </View>
-
-            <View style={styles.line} />
-
-            <View style={styles.personalInfoInputs}>
-
-              <View style={styles.firstAndLastNames}>
-
-                <TextInput
-                  placeholder='First Name'
-                  onChangeText={text => this.setState({ firstName: text })}
-                  style={[styles.textInput, styles.firstName]}
+              <View style={styles.header}>
+                <MaterialIconsIcon
+                  name="arrow-back"
+                  color="black"
+                  size={25}
+                  onPress={() => this.props.navigation.goBack()}
+                  style={styles.goBackIcon}
                 />
+                <Text style={styles.headerText}>{SignUp.title}</Text>
+
+              </View>
+
+              <View style={styles.pageDescriptionView}>
+                <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
+              </View>
+              <View style={styles.credentialsInputs}>
 
                 <TextInput
-                  placeholder='Last Name'
-                  onChangeText={text => this.setState({ lastName: text })}
-                  style={[styles.textInput, styles.lastName]}
+                  placeholder="Enter Email"
+                  onChangeText={text => this.setState({ email: text })}
+                  autoCapitalize='none'
+                  style={[styles.textInput]}
+                  keyboardType='email-address'
 
+                />
+                <TextInput
+                  placeholder='Enter Password'
+                  onChangeText={text => this.setState({ password: text })}
+                  autoCapitalize='none'
+                  secureTextEntry={true}
+                  style={[styles.textInput]}
+                />
+                <TextInput
+                  placeholder='Repeat Password'
+                  onChangeText={text => this.setState({ repeatPassword: text })}
+                  autoCapitalize='none'
+                  secureTextEntry={true}
+                  style={[styles.textInput]}
                 />
               </View>
-              <TextInput
-                placeholder="Company name (optinal)"
-                onChangeText={text => this.setState({ companyName: text })}
-                style={[styles.textInput]}
 
-              />
-              <TextInput
-                placeholder='Phone number (optinal)'
-                onChangeText={text => this.setState({ phoneNumber: text })}
-                style={[styles.textInput]}
-              />
-              <TextInput
-                placeholder='Zip code'
-                onChangeText={text => this.setState({ zipCode: text })}
-                style={[styles.textInput, styles.zipCode]}
-              />
-            </View>
-            <View style={styles.signUpButtonView}>
-              <Button onPress={this.onSubmit} style={styles.signUpButton}>Sign Up</Button>
-            </View>
+              <View style={styles.line} />
 
-          </View>
-        </ScrollView>
+              <View style={styles.personalInfoInputs}>
+
+                <View style={styles.firstAndLastNames}>
+
+                  <TextInput
+                    placeholder='First Name'
+                    onChangeText={text => this.setState({ firstName: text })}
+                    style={[styles.textInput, styles.firstName]}
+                  />
+
+                  <TextInput
+                    placeholder='Last Name'
+                    onChangeText={text => this.setState({ lastName: text })}
+                    style={[styles.textInput, styles.lastName]}
+
+                  />
+                </View>
+                <TextInput
+                  placeholder="Company name (optinal)"
+                  onChangeText={text => this.setState({ companyName: text })}
+                  style={[styles.textInput]}
+
+                />
+                <TextInput
+                  placeholder='Phone number (optinal)'
+                  onChangeText={text => this.setState({ phoneNumber: text })}
+                  autoCapitalize='none'
+                  style={[styles.textInput]}
+                />
+                <TextInput
+                  placeholder='Zip code'
+                  onChangeText={text => this.setState({ zipCode: text })}
+                  autoCapitalize='none'
+                  style={[styles.textInput, styles.zipCode]}
+                />
+              </View>
+              <View style={styles.signUpButtonView}>
+                <Button onPress={this.onSubmit} style={styles.signUpButton}>Sign Up</Button>
+              </View>
+
+            </View>
+          </ScrollView>
+        </SafeAreaView>
       </>
     );
   }

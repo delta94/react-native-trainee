@@ -43,8 +43,14 @@ export const styles = StyleSheet.create({
     logoImage: {
         width: 420,
         height: 400,
-        //marginTop: 55 //ios
-        marginTop: 5 //android
+        marginTop: 0
+
+    },
+
+    confirmPasswordLogoImage: {
+        width: 420,
+        height: 330,
+        marginTop: 0
 
     },
     logoImageView: {
@@ -86,7 +92,7 @@ export const styles = StyleSheet.create({
 
     },
     restorePasswordButton: {
-        marginTop: 155,
+        marginTop: 105,
         height: 60,
         color: 'black',
         backgroundColor: '#ebebeb',

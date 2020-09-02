@@ -69,95 +69,111 @@ class ForgotPassword extends React.Component<DispatchFromProps & StateFromProps 
     render() {
         return (
             <>
-                <ScrollView>
-                    <View style={styles.forgotPasswordLayout}>
-
-                        <View style={styles.logoImageView}>
-                            <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
-                        </View>
-
-                        <Text style={{ color: 'red' }}>{this.props.validationMessage}</Text>
-
-                        <View style={styles.header}>
-
-                            <MaterialIconsIcon
-                                name="arrow-back"
-                                color="black"
-                                size={25}
-                                onPress={() => this.props.navigation.goBack()}
-                                style={styles.goBackIcon}
-                            />
-                            <Text style={styles.headerText}>{ForgotPassword.title}</Text>
-
-                        </View>
-
-                        <View style={styles.pageDescriptionView}>
-                            <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
-                        </View>
-
-                        <View style={styles.forgotContainer}>
-
+                <SafeAreaView>
+                    <ScrollView>
+                        <View style={styles.forgotPasswordLayout}>
 
                             {!this.props.isForgotPasswordActive ?
-                                <>
-                                    <Input
-                                        placeholder="Enter Email"
-                                        onChangeText={text => this.setState({ email: text })}
-                                        containerStyle={styles.textInput}
-                                        leftIcon={<Text></Text>}
-                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
-
-                                    />
-
-                                    <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
-                                        <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
-                                    </Button>
-                                </>
+                                <View style={styles.logoImageView}>
+                                    <Image style={styles.logoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                                </View>
                                 :
-                                <>
-                                    <View style={styles.userInfo}>
-                                        <Text style={{ fontWeight: 'bold' }}>{`Changing password for: ${this.props.userName}`}</Text>
-                                        <IoniconsIcon
-                                            name='close'
-                                            size={20}
-                                            color='red'
-                                            onPress={() => this.props.clearAllStates()} />
-                                    </View>
+                                <View style={styles.logoImageView}>
+                                    <Image style={styles.confirmPasswordLogoImage} source={require('../../../assets/images/CatScanBigLogo.png')} />
+                                </View>
+                            }
 
-                                    <Input
-                                        placeholder="Enter Confirmation Code"
-                                        onChangeText={text => this.setState({ confirmationCode: text })}
-                                        containerStyle={styles.textInput}
-                                        leftIcon={<Text></Text>}
-                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+                            <Text style={{ color: 'red' }}>{this.props.validationMessage}</Text>
 
-                                    />
-                                    <Input
-                                        placeholder="Enter New Password"
-                                        onChangeText={text => this.setState({ newPassword: text })}
-                                        containerStyle={styles.textInput}
-                                        leftIcon={<Text></Text>}
-                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+                            <View style={styles.header}>
 
-                                    />
-                                    <Input
-                                        placeholder="Repeat New Password"
-                                        onChangeText={text => this.setState({ repeatPassword: text })}
-                                        containerStyle={styles.textInput}
-                                        leftIcon={<Text></Text>}
-                                        inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+                                <MaterialIconsIcon
+                                    name="arrow-back"
+                                    color="black"
+                                    size={25}
+                                    onPress={() => this.props.navigation.goBack()}
+                                    style={styles.goBackIcon}
+                                />
+                                <Text style={styles.headerText}>{ForgotPassword.title}</Text>
 
-                                    />
+                            </View>
 
-                                    <Button onPress={this.onConfirmRestorePassword} style={styles.confirmRestorePasswordButton}>
-                                        <Text style={{ fontWeight: 'bold' }}>Confirm restore password</Text>
-                                    </Button>
-                                </>}
+                            <View style={styles.pageDescriptionView}>
+                                <Text style={styles.pageDescription}>Lorem ipsum dolor sit amt, Ipsum dolor sit amt, ipsum dolor sit amt, consectetur</Text>
+                            </View>
+
+                            <View style={styles.forgotContainer}>
+
+
+                                {!this.props.isForgotPasswordActive ?
+                                    <>
+                                        <Input
+                                            placeholder="Enter Email"
+                                            onChangeText={text => this.setState({ email: text })}
+                                            containerStyle={styles.textInput}
+                                            leftIcon={<Text></Text>}
+
+                                            autoCapitalize='none'
+                                            keyboardType='email-address'
+                                            inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                        />
+
+                                        <Button onPress={this.onSubmit} style={styles.restorePasswordButton}>
+                                            <Text style={{ fontWeight: 'bold' }}>Restore password</Text>
+                                        </Button>
+                                    </>
+                                    :
+                                    <>
+                                        <View style={styles.userInfo}>
+                                            <Text style={{ fontWeight: 'bold' }}>{`Changing password for: ${this.props.userName}`}</Text>
+                                            <IoniconsIcon
+                                                name='close'
+                                                size={20}
+                                                color='red'
+                                                onPress={() => this.props.clearAllStates()} />
+                                        </View>
+
+                                        <Input
+                                            placeholder="Enter Confirmation Code"
+                                            onChangeText={text => this.setState({ confirmationCode: text })}
+                                            containerStyle={styles.textInput}
+                                            leftIcon={<Text></Text>}
+                                            autoCapitalize='none'
+                                            inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                        />
+                                        <Input
+                                            placeholder="Enter New Password"
+                                            onChangeText={text => this.setState({ newPassword: text })}
+                                            containerStyle={styles.textInput}
+                                            leftIcon={<Text></Text>}
+                                            autoCapitalize='none'
+                                            secureTextEntry={true}
+                                            inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                        />
+                                        <Input
+                                            placeholder="Repeat New Password"
+                                            onChangeText={text => this.setState({ repeatPassword: text })}
+                                            containerStyle={styles.textInput}
+                                            leftIcon={<Text></Text>}
+                                            autoCapitalize='none'
+                                            secureTextEntry={true}
+                                            inputContainerStyle={{ borderBottomWidth: 0, marginTop: 10 }}
+
+                                        />
+
+                                        <Button onPress={this.onConfirmRestorePassword} style={styles.confirmRestorePasswordButton}>
+                                            <Text style={{ fontWeight: 'bold' }}>Confirm restore password</Text>
+                                        </Button>
+                                    </>}
+
+                            </View>
 
                         </View>
-
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                </SafeAreaView>
             </>
         );
     }
